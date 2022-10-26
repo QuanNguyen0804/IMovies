@@ -1,0 +1,48 @@
+@use "../mixin.scss" as *;
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 1112px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.main {
+    display: flex;
+    // height: 900px;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #111;
+
+    @include mobile {
+        height: 100%;
+    }
+}
+
+.content {
+    margin-top: calc(var(--header-height) + 10px);
+}
+
+.pagination-page {
+    min-width: 200px;
+    margin: 16px auto;
+
+    .MuiPagination-root .MuiPagination-ul {
+        justify-content: center;
+    }
+}
+
+.MuiPagination-root {
+    div {
+        color: #fff !important;
+    }
+
+    button {
+        color: #fff !important;
+    }
+
+    .Mui-selected {
+        background-color: var(--primary) !important;
+    }
+}

@@ -1,0 +1,19 @@
+@use "../../mixin.scss" as *;
+
+.film-container {
+    display: flex;
+    width: calc(#{1112px} - #{260px});
+    max-width: 100%;
+    min-height: 500px;
+    margin-left: auto;
+    flex-wrap: wrap;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    // overflow-y: scroll;
+
+    @include mobile {
+        overflow-y: unset;
+    }
+}

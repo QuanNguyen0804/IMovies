@@ -1,0 +1,20 @@
+@use "../../mixin.scss" as *;
+
+.sidebar {
+    flex: 1;
+    flex-shrink: 0;
+    width: 260px;
+    padding: 18px 12px;
+    margin-right: 4px;
+    margin-top: 56px;
+    background-color: #111;
+    // border-radius: 4px;
+
+    // position: fixed;
+    // top: 0;
+    // left: 120px;
+
+    @include mobile {
+        display: none;
+    }
+}

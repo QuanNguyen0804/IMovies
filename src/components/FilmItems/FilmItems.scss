@@ -1,0 +1,58 @@
+@use  '../../mixin.scss' as *;
+
+.film-items{
+    display: flex;
+    flex-direction: column;
+    width: calc(25% - 2px - 12px);
+    height: 360px;
+    // padding: 8px;
+    margin: 6px;
+    border: 1px solid #111;
+    border-radius: 8px;
+
+    @include mobile {
+        width: calc(50% - 2px - 12px);
+    }
+
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+
+    .image{
+        width: 100%;
+        height: 280px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+
+    }
+
+    .hide{
+        display: none !important;
+    }
+    
+    .content{
+        display: inherit;
+        flex-direction: inherit;
+        margin: 6px;
+        flex: 1;
+
+        .name{
+            font-weight: bolder;
+            margin-bottom: auto;
+            color: var(--primary);
+
+            //Limit line
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* number of lines to show */
+                    line-clamp: 2; 
+            -webkit-box-orient: vertical;
+        }
+
+        .year{
+            // margin-top: 6px;
+        }
+    }
+}

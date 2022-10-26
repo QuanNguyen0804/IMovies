@@ -1,0 +1,137 @@
+@use "../../mixin.scss" as *;
+
+.header {
+    display: flex;
+    align-items: center;
+
+    max-width: 1112px;
+    height: var(--header-height);
+    padding: 4px 0;
+
+    margin: 0 auto;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #111;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 99;
+
+    @include mobile {
+        padding: 4px 12px;
+    }
+}
+
+.logo {
+    width: 260px;
+    max-width: 100%;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary);
+    line-height: var(--header-height);
+}
+
+.header_content {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile {
+        width: 80%;
+    }
+
+    .search {
+        position: relative;
+        width: 400px;
+        max-width: 100%;
+        height: 34px;
+        background-color: #313131;
+        border-radius: 50px;
+
+        @include mobile {
+            // width: 240px;
+        }
+
+        .search_input {
+            width: 70%;
+            height: 100%;
+            margin-left: 36px;
+            font-size: 15px;
+            color: #fff;
+            outline: none;
+            border: none;
+            background-color: inherit;
+        }
+
+        .search_icon {
+            position: absolute;
+            top: 7px;
+            left: 10px;
+            color: #ddd;
+        }
+
+        .search_btn {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+
+            padding: 6px 8px;
+            color: #fff;
+            font-size: 12px;
+            border-radius: 50px;
+            background-color: #26282a;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .settings {
+        color: #ddd;
+        padding: 0 8px;
+        border-left: 1px solid #fff;
+        border-right: 1px solid #fff;
+
+        @include mobile {
+            display: none;
+        }
+
+        .setting_icon {
+            margin: 0 8px;
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 10px;
+        color: #ddd;
+        cursor: pointer;
+
+        @include mobile {
+        }
+
+        .avatar {
+            display: block;
+            width: 18px;
+            height: 18px;
+            padding: 2px;
+            border-radius: 50%;
+            border: 1px solid;
+        }
+
+        .name {
+            margin: 0 6px;
+        }
+    }
+}

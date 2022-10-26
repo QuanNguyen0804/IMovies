@@ -1,0 +1,18 @@
+export const category = [
+    "Tất cả",
+    "Hành động",
+    "Hài kịch",
+    "Phiêu lưu",
+    "kinh dị",
+    "Khoa học viễn tưởng",
+    "Drama",
+    "Tình cảm, lãng mạn",
+    "Cổ trang",
+    "Xuyên không",
+    "Đam mỹ",
+    "Hình sự",
+    "Tâm lý",
+    "Tài liệu",
+    "18+",
+    "Hoạt hình",
+];
