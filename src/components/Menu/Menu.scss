@@ -1,17 +1,17 @@
-.menu{
+.menu {
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 4px 0;
     border-bottom: 1px solid #ccc;
 
-    .menu-item{
+    .menu-item {
         padding: 8px 0;
         margin-bottom: 4px;
         color: #fff;
         text-decoration: none;
 
-        .menu-icon{
+        .menu-icon {
             display: inline-block;
             width: 18px;
             font-size: 18px;
@@ -19,11 +19,13 @@
         }
     }
 
-    .menu-item-hover:hover{
-        color: var(--primary);
+    .menu-item-hover:hover {
+        // color: var(--primary);
+        transform: translateX(16px) scale(1.2);
     }
 
-    .menu-item-active{
+    .menu-item-active {
         color: var(--primary);
+        font-weight: 700;
     }
 }

@@ -1,17 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
+import route from "../config/routes";
 
 const initialState = {
     films: [],
     totalPage: 0,
+    genre: route.home,
 };
 
 export const filmSlice = createSlice({
     name: "filmStore",
     initialState,
     reducers: {
-        setFilmStore: (state, action) => {
+        setFilmStore: (state: any, action) => {
             state.films = action.payload.films;
             state.totalPages = action.payload.totalPages;
+            state.genre = action.payload.genre;
         },
     },
 });

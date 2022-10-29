@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 // import Skeleton from "@mui/material/Skeleton";
 
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,13 +16,13 @@ import React, { useEffect, useState } from "react";
 
 // import "./Details.scss";
 // import { FilmDetails, Episodes } from "../interface";
-// import filmsAPI from "../services/filmsAPI";
+import filmsAPI from "../services/filmsAPI";
 // import FilmContainer from "../components/FilmContainer/FilmContainer";
 // import Video from "../components/Video/Video";
 
 const Details = () => {
-    //     const param = useParams();
-    //     const slug: string = param.slug || "";
+    const param = useParams();
+    const movieId: string = param.id || "";
 
     //     const [film, setFilm] = useState<FilmDetails>();
     //     const [episode, setEpisode] = useState<number>(-1);
@@ -31,17 +31,13 @@ const Details = () => {
     //     const [isShowMore, setIsShowMore] = useState<any>(false);
     //     const [isLike, setIsLike] = useState<boolean>(false);
 
-    //     useEffect(() => {
-    //         const getFilmDetails = async () => {
-    //             const filmDetailsData: any = await filmDetail(slug);
-    //             const ep = filmDetailsData.episodes[0];
+    useEffect(() => {
+        const getFilmDetails = async () => {
+            const res: any = await filmsAPI.details(Number(movieId));
+        };
 
-    //             setFilm(filmDetailsData.movie);
-    //             setEpisodes(ep);
-    //         };
-
-    //         getFilmDetails();
-    //     }, [slug]);
+        getFilmDetails();
+    }, [movieId]);
 
     //     const handleChangeEpisode = (epis: number) => {
     //         setEpisode(epis);

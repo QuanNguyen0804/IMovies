@@ -1,10 +1,8 @@
 const routes = {
-    popular: "/popular",
-    top_rated: "/top_rated",
-    upcoming: "/upcoming",
-    upload: "/upload",
-    search: "/search",
-    live: "/live",
+    home: "now_playing",
+    upcoming: "upcoming",
+    popular: "popular",
+    top_rated: "top_rated",
 };
 
 export default routes;

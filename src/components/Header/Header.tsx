@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import classNames from "classnames/bind";
 
+import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-regular-svg-icons";
 import {
     faMagnifyingGlass,
     faGear,
     faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
 
-import "./Header.scss";
-import { setFilmStore } from "../../app/filmSlice";
-import filmsApi from "../../services/filmsAPI";
+const cx = classNames.bind(styles);
 
 const Header: React.FC = () => {
     const [searchValue, setSearchValue] = useState("");
@@ -26,28 +26,16 @@ const Header: React.FC = () => {
     }, []);
 
     const handleSearch = () => {
-        // const getSearchResults = async () => {
-        //     const res: any = await filmsApi.search(searchValue);
-
-        //     dispatch(
-        //         setFilmStore({
-        //             films: res.results,
-        //             totalPages: res.total_pages,
-        //         })
-        //     );
-        // };
-
-        // getSearchResults();
         navigate(`/movies/search/${searchValue}/1`);
     };
 
     return (
-        <div className="header">
-            <div className="logo">IFilm</div>
-            <div className="header_content">
-                <div className="search">
+        <div className={cx("header")}>
+            <div className={cx("logo")}>IMovies</div>
+            <div className={cx("header_content")}>
+                <div className={cx("search")}>
                     <input
-                        className="search_input"
+                        className={cx("search_input")}
                         type="text"
                         value={searchValue}
                         onChange={(e) => {
@@ -59,25 +47,25 @@ const Header: React.FC = () => {
                             }
                         }}
                     />
-                    <div className="search_icon">
+                    <div className={cx("search_icon")}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </div>
-                    <button className="search_btn" onClick={handleSearch}>
+                    <button className={cx("search_btn")} onClick={handleSearch}>
                         Search
                     </button>
                 </div>
-                <div className="settings">
-                    <span className="setting_icon">
+                <div className={cx("settings")}>
+                    <span className={cx("setting_icon")}>
                         <FontAwesomeIcon icon={faGear} />
                     </span>
-                    <span className="setting_icon">
+                    <span className={cx("setting_icon")}>
                         <FontAwesomeIcon icon={faBell} />
                     </span>
                 </div>
-                <div className="user">
-                    <img src="./logo512.png" alt="" className="avatar" />
-                    <span className="name">Quan</span>
-                    <span className="user_icon">
+                <div className={cx("user")}>
+                    <img src="./logo512.png" alt="" className={cx("avatar")} />
+                    <span className={cx("name")}>Quan</span>
+                    <span className={cx("user_icon")}>
                         <FontAwesomeIcon icon={faChevronDown} />
                     </span>
                 </div>

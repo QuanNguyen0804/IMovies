@@ -1,41 +1,38 @@
-.footer{
+.footer {
     width: 100%;
     min-height: 46px;
     padding: 8px 0;
-    // background-color: #ddd; 
-    border-top: 1px solid #111; 
+    // background-color: #ddd;
+    border-top: 1px solid #111;
     text-align: center;
 
-    .brand{
+    .brand {
         text-align: center;
         line-height: 36px;
         font-weight: bold;
         color: var(--primary);
     }
 
-    .contacts{
-
-        .contact{
+    .contacts {
+        .contact {
             display: inline-block;
 
-            svg{
-                font-size: 30px;
-                color: var(--primary);
-    
+            font-size: 30px;
+            color: var(--primary);
+            svg {
             }
 
-            & + .contact{
+            & + .contact {
                 margin-left: 18px;
             }
 
-            &:hover{
+            &:hover {
                 opacity: 0.8;
             }
         }
-
     }
 
-    .copyright{
+    .copyright {
         margin-top: 8px;
         font-size: 16px;
         font-weight: 300;

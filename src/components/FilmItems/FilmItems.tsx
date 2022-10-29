@@ -1,13 +1,22 @@
 import React, { useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import {
+    faHeart as faHeartSl,
+    faStar,
+} from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames/bind";
 
-import "./FilmItems.scss";
+import styles from "./FilmItems.module.scss";
 import { Film } from "../../interface";
 
 interface Props {
     film: any;
 }
+
+const cx = classNames.bind(styles);
 
 const FilmItems: React.FC<Props> = (props) => {
     const { film } = props;
@@ -16,18 +25,21 @@ const FilmItems: React.FC<Props> = (props) => {
     const imgElement = useRef<any>();
 
     const handleOnclick = (id: number) => {
-        return navigate(`/film/${id}`);
+        return navigate(`/movie/${id}`);
     };
 
     const handleLoading = () => {
-        imgElement.current.classList.remove("hide");
+        imgElement.current.classList.remove(cx("hide"));
         setLoading(false);
     };
 
     return (
-        <div className="film-items" onClick={() => handleOnclick(film.id)}>
+        <div
+            className={cx("film-items")}
+            onClick={() => handleOnclick(film.id)}
+        >
             <img
-                className="image hide"
+                className={cx("image", "hide")}
                 src={`${process.env.REACT_APP_PATH_IMAGE}${film.poster_path}`}
                 alt={film.title}
                 onLoad={() => {
@@ -41,15 +53,29 @@ const FilmItems: React.FC<Props> = (props) => {
 
             {loading && (
                 <Skeleton
-                    className="image"
+                    className={cx("image")}
                     variant="rectangular"
                     animation="wave"
                 />
             )}
-            <div className="content">
-                <p className="name">{film.title}</p>
-                <p className="year">{film.vote_count}</p>
+            <div className={cx("content")}>
+                <p className={cx("name")}>{film.title}</p>
+                <div className={cx("info")}>
+                    <span className={cx("year")}>
+                        {film.release_date && film.release_date.slice(0, 4)}
+                    </span>
+                    <span className={cx("rating")}>
+                        <FontAwesomeIcon
+                            className={cx("interact-icon")}
+                            icon={faStar}
+                        />
+                        <span className={cx("rating-num")}>
+                            {film.vote_average}
+                        </span>
+                    </span>
+                </div>
             </div>
+            {film.adult && <div className={cx("adult-label")}>18+</div>}
         </div>
     );
 };

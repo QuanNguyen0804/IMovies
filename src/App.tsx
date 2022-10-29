@@ -7,6 +7,7 @@ import Home from "./Pages/Home";
 import Search from "./Pages/Search";
 import Layout from "./Pages/Layout";
 import NotFound from "./Pages/NotFound";
+import Genres from "./Pages/Genres";
 
 const App: React.FC = () => {
     return (
@@ -15,11 +16,15 @@ const App: React.FC = () => {
                 <Route path="/" element={<Navigate to="/movies" replace />} />
                 <Route path="/movies" element={<Layout />}>
                     <Route index element={<Home />} />
+                    <Route path="/movies/:genre/:page" element={<Home />} />
+                    <Route path="/movies/:page" element={<Home />} />
                     <Route path="search/:query/:page" element={<Search />} />
+                    <Route
+                        path="/movies/genres/:genreId/:page"
+                        element={<Genres />}
+                    />
                 </Route>
-                <Route path="/movies/:cate" element={<Home />} />
-                <Route path="/movies/:cate/:page" element={<Home />} />
-                <Route path="/movie/:slug" element={<Details />} />
+                <Route path="/movie/:id" element={<Details />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

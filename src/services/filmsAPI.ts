@@ -2,9 +2,9 @@ import httpRequest from "../utils/httpRequest";
 
 const filmsApi = {
     details: (movieId: number, option?: object) => {
-        const url = "/movie/";
+        const url = `/movie/${movieId}`;
 
-        return httpRequest.get(url, { params: { movieId, ...option } });
+        return httpRequest.get(url, { params: { ...option } });
     },
 
     list: (movieType: string, option?: object) => {

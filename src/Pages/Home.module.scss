@@ -13,36 +13,25 @@
     // height: 900px;
     max-width: 100%;
     margin: 0 auto;
+    margin-top: 56px;
     background-color: #111;
 
     @include mobile {
         height: 100%;
     }
+
+    .recommend {
+        width: 100%;
+        margin: 12px 0 0 8px;
+        color: var(--primary);
+    }
 }
 
 .content {
-    margin-top: calc(var(--header-height) + 10px);
+    // margin-top: calc(var(--header-height) + 10px);
 }
 
 .pagination-page {
     min-width: 200px;
     margin: 16px auto;
-
-    .MuiPagination-root .MuiPagination-ul {
-        justify-content: center;
-    }
-}
-
-.MuiPagination-root {
-    div {
-        color: #fff !important;
-    }
-
-    button {
-        color: #fff !important;
-    }
-
-    .Mui-selected {
-        background-color: var(--primary) !important;
-    }
 }

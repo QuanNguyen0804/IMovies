@@ -1,16 +1,16 @@
-:root{
+:root {
     --primary: #f84a85;
     --header-height: 48px;
     --image-with: 188px;
 }
 
-*{ 
+* {
     margin: 0;
     padding: 0;
     border: 0;
 }
 
-html{
+html {
     color: #fff;
     scroll-behavior: smooth;
     background-color: #1a1a1a;
@@ -20,12 +20,31 @@ button,
 textarea,
 input,
 select,
-a{
- -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
- -webkit-tap-highlight-color: transparent;
- -webkit-user-select: none;
- -khtml-user-select: none;
- -moz-user-select: none;
- -ms-user-select: none;
-  user-select: none;
+a {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// Overide css MUI - Pagination
+.MuiPagination-root .MuiPagination-ul {
+    justify-content: center;
+}
+
+.MuiPagination-root {
+    div {
+        color: #fff !important;
+    }
+
+    button {
+        color: #fff !important;
+    }
+
+    .Mui-selected {
+        background-color: var(--primary) !important;
+    }
 }

@@ -1,65 +1,73 @@
-export interface Film {
-    modified: {
-        time: string;
-    };
-    _id: string;
-    name: string;
-    origin_name: string;
-    poster_url: symbol;
-    thumb_url: string;
-    slug: string;
-    year: number;
+export interface Films {
+    page: number;
+    results: [Film];
+    total_pages: number;
+    total_results: number;
 }
 
-export interface Films {
-    status: boolean;
-    items: [Film];
-    pagination: {
-        totalItems: number;
-        totalItemsPerPage: number;
-        currentPage: number;
-        totalPages: number;
-    };
+export interface Film {
+    poster_path: string;
+    adult: boolean;
+    overview: string;
+    release_date: string;
+    genre_ids: [number];
+    id: number;
+    original_title: string;
+    original_language: string;
+    title: string;
+    backdrop_path: string;
+    popularity: number;
+    vote_count: number;
+    video: boolean;
+    vote_average: number;
 }
 
 export interface FilmDetails {
-actor: any;
-category: any;
-chieurap: boolean;
-content: string;
-country: any;
-director: [string];
-episode_current: string;
-episode_total: string;
-is_copyright: boolean;
-lang: string;
-modified: {time: string;}
-name: string;
-notify: string;
-origin_name: string;
-poster_url: string;
-quality: string;
-// showtimes: string;
-slug: string;
-status: string;
-sub_docquyen: string;
-thumb_url: string;
-time: string;
-trailer_url: string;
-type: string;
-year: number
-_id: string;
+    adult: boolean;
+    backdrop_path: string;
+    // belongs_to_collection: null or {}
+    budget: number;
+    genres: [
+        {
+            id: number;
+            name: string;
+        }
+    ];
+    homepage: any; //string or null
+    id: number;
+    imdb_id: any; //string or null
+    original_language: string;
+    original_title: string;
+    overview: any; //string or null
+    popularity: number;
+    poster_path: any; //string or null
+    production_companies: [
+        {
+            name: string;
+            id: number;
+            logo_path: any; //string or null
+            origin_country: string;
+        }
+    ];
+    production_countries: [{ iso_3166_1: string; name: string }];
+    release_date: string;
+    revenue: number;
+    runtime: any; //(number or null)
+    spoken_languages: [
+        {
+            iso_639_1: string;
+            name: string;
+        }
+    ];
+    status: string;
+    tagline: string;
+    title: string;
+    video: boolean;
+    vote_average: number;
+    vote_count: number;
 }
 
-interface Server_data{
-    filename: string;
-    link_embed: string;
-    link_m3u8: string
-    // name
-    // slug
-}
-
-export interface Episodes {
-    server_data: [Server_data]
-    server_name: string;
+export interface Genre {
+    id: number;
+    name: string;
 }
