@@ -1,6 +1,6 @@
-@use  '../mixin.scss' as *;
+@use "../mixin.scss" as *;
 
-.film-cover{
+.film-cover {
     padding: 68px 88px;
     width: 936px;
     margin-top: 12px;
@@ -9,7 +9,7 @@
     border-radius: 18px;
     background-color: #262834;
 
-    @include mobile{
+    @include mobile {
         width: 100%;
         padding: 0;
         margin-top: 0;
@@ -24,22 +24,22 @@
     font-size: 16px;
     color: #feffff;
     // background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
-    
-    @include mobile{
+
+    @include mobile {
         padding: 8px;
     }
 
     .film-image {
         max-width: 100%;
         margin-right: 28px;
-        
-        .image{
+
+        .image {
             width: var(--image-with);
             height: 280px;
             // border-radius: 8px;
         }
 
-        .trailer{
+        .trailer {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -48,7 +48,7 @@
             margin-top: 4px;
             cursor: pointer;
 
-            .trailer-play-icon{
+            .trailer-play-icon {
                 font-size: 14px;
                 margin-right: 6px;
             }
@@ -60,10 +60,10 @@
         min-width: 360px;
     }
 
-    .film-name-react{
+    .film-name-react {
         display: flex;
         justify-content: space-between;
-        align-items:flex-end;
+        align-items: flex-end;
         margin-bottom: 8px;
     }
 
@@ -72,25 +72,30 @@
         font-size: 24px;
     }
 
-    .react{
+    .react {
         cursor: pointer;
 
-        .react-icon-heart{
+        .react-icon-heart {
             font-size: 24px;
             margin-right: 30px;
+
+            &:active {
+                font-size: 22px;
+            }
         }
-    
-        .react-icon-share{
+
+        .react-icon-share {
             font-size: 28px;
         }
     }
 
-
-    .base-infor{
+    .base-infor {
         font-size: 14px;
         color: #90939a;
 
-        .base-infor-country::after,.base-infor-time::after, .base-infor-gender::after{
+        .base-infor-country::after,
+        .base-infor-time::after,
+        .base-infor-gender::after {
             content: "";
             display: inline-block;
             width: 1px;
@@ -99,15 +104,12 @@
             transform: translateY(2px);
             margin: 0 12px;
         }
-        
 
-        .base-infor-year{
-
+        .base-infor-year {
         }
-
     }
 
-    .rating-info{
+    .rating-info {
         margin-top: 8px;
         display: flex;
 
@@ -127,8 +129,9 @@
             overflow: hidden;
             color: var(--primary);
         }
-        .empty-stars:before, .full-stars:before {
-            content:"\2605\2605\2605\2605\2605";
+        .empty-stars:before,
+        .full-stars:before {
+            content: "\2605\2605\2605\2605\2605";
             font-size: 12pt;
         }
         .empty-stars:before {
@@ -139,14 +142,14 @@
         }
         // End Rating star
 
-        .rating-number{
+        .rating-number {
             margin-left: 16px;
             font-size: 16px;
             align-self: flex-end;
         }
     }
 
-    .describe{
+    .describe {
         margin-top: 18px;
         font-size: 14px;
         color: #a5a8af;
@@ -154,59 +157,59 @@
         // text-align: justify;
     }
 
-    .show-all{
+    .show-all {
         text-align: center;
         margin-top: 6px;
         font-size: 12px;
         cursor: pointer;
     }
 
-    .creators, .stars{
+    .creators,
+    .stars {
         margin-top: 26px;
         font-weight: 500;
 
-        .creator-title{
+        .creator-title {
             font-size: 14px;
         }
 
-        .creator-list{
+        .creator-list {
             color: var(--primary);
         }
     }
 
-    .stars{
+    .stars {
         margin-top: 24px;
     }
 
-
-    .time, .autors, .status{
+    .time,
+    .autors,
+    .status {
         margin: 4px 0;
     }
 }
 
-.episodes{
+.episodes {
     display: flex;
     margin-top: 24px;
     color: #fff;
 
-    @include mobile{
-       padding: 8px;
+    @include mobile {
+        padding: 8px;
     }
 
-    .episode-list{
+    .episode-list {
         width: var(--image-with);
         max-height: 242px;
 
-        @include mobile{
-           display: none;
+        @include mobile {
+            display: none;
         }
 
-        &::-webkit-scrollbar
-        {
+        &::-webkit-scrollbar {
             width: 1px;
-        };
-        &::-webkit-scrollbar-thumb
-        {
+        }
+        &::-webkit-scrollbar-thumb {
             background: var(--primary);
             border-radius: 10px;
         }
@@ -215,87 +218,82 @@
         overflow-x: hidden;
     }
 
-    .episode{
+    .episode {
         width: var(--image-with);
         padding: 12px 0;
-        background-color:transparent;
+        background-color: transparent;
         color: #fff;
         border-radius: 8px;
         cursor: pointer;
     }
 
-    .active{
+    .active {
         background-color: var(--primary);
     }
 
-    .episodes-content{
+    .episodes-content {
         margin-left: 24px;
-        
-        @include mobile{
+
+        @include mobile {
             margin-left: 0;
             width: 100%;
-        //    padding: 8px;
+            //    padding: 8px;
         }
 
-        .episode-header{
+        .episode-header {
             display: flex;
             justify-content: space-between;
 
-            .title{
+            .title {
                 margin-bottom: 6px;
             }
 
-            .grid-icon{
+            .grid-icon {
                 margin-left: 8px;
                 color: #7d7d85;
                 cursor: pointer;
             }
 
-            .grid-active{
+            .grid-active {
                 color: #fff;
             }
         }
 
-
-        .video-list{
+        .video-list {
             display: inline-flex;
             width: 720px;
             max-width: 100%;
-            
-            &::-webkit-scrollbar
-            {
+
+            &::-webkit-scrollbar {
                 height: 8px;
                 border: 0.2px solid #999;
-                border-radius: 10px
-            };
-            &::-webkit-scrollbar-thumb
-            {
+                border-radius: 10px;
+            }
+            &::-webkit-scrollbar-thumb {
                 background: var(--primary);
                 border-radius: 10px;
             }
             overflow-x: scroll;
         }
     }
-
 }
 
-.watching-video{
+.watching-video {
     width: 100%;
     margin: 16px 0;
 
-    .video-name{
+    .video-name {
         font-size: 22px;
         color: var(--primary);
         margin-left: 4px;
         margin-bottom: 4px;
     }
-    
-    
-    .video-content{
-        iframe{
+
+    .video-content {
+        iframe {
             width: 100%;
             // height: 720px;
-            // padding-bottom: 56.25%; 
+            // padding-bottom: 56.25%;
             aspect-ratio: 16/9;
             border-radius: 4px;
         }

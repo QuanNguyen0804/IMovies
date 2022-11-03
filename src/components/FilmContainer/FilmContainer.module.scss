@@ -5,7 +5,8 @@
     width: calc(#{1112px} - #{260px});
     max-width: 100%;
     min-height: 500px;
-    margin-left: auto;
+    // margin-left: auto;
+    margin: auto;
     flex-wrap: wrap;
 
     &::-webkit-scrollbar {

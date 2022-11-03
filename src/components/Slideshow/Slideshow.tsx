@@ -9,6 +9,7 @@ import "antd/lib/carousel/style/index.css";
 
 import styles from "./Slideshow.module.scss";
 import { Film } from "../../interface";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     films: any;
@@ -19,6 +20,7 @@ const cx = classNames.bind(styles);
 const Slideshow: React.FC<Props> = (props) => {
     const [filmsSlide, setFilmsSlide] = useState<Film[]>([]);
     const { films } = props;
+    const navigate = useNavigate();
 
     const arrIndex = Array.from({ length: 5 }, () =>
         Math.floor(Math.random() * films.length)
@@ -55,7 +57,7 @@ const Slideshow: React.FC<Props> = (props) => {
                                     <div
                                         className={cx("btn-watch")}
                                         onClick={() => {
-                                            alert(films[i].title);
+                                            navigate(`/movie/${films[i].id}`);
                                         }}
                                     >
                                         <span className={cx("play-icon")}>

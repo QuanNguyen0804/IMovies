@@ -28,8 +28,8 @@ const filmsApi = {
         return httpRequest.get(url, { params: { ...option } });
     },
 
-    reviews: (reviewId: string, option?: object) => {
-        const url = `/review/${reviewId}`;
+    reviews: (movieId: number, option?: object) => {
+        const url = `movie/${movieId}/reviews`;
         return httpRequest.get(url, { params: { ...option } });
     },
 
