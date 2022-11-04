@@ -1,12 +1,15 @@
 @use "../mixin.scss" as *;
 
 .film-cover {
-    padding: 68px 88px;
+    display: flex;
     width: 936px;
-    margin-top: 12px;
+    padding: 68px 88px;
+    margin-top: 8px;
     margin-bottom: 4px;
-    border: 2px solid #010006;
-    border-radius: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #010006;
+    border-radius: 4px;
     background-color: #262834;
 
     @include mobile {

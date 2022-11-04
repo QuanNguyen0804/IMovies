@@ -18,7 +18,7 @@ import classNames from "classnames/bind";
 import styles from "./Details.module.scss";
 import { FilmDetails } from "../interface";
 import filmsAPI from "../services/filmsAPI";
-import FilmContainer from "../components/FilmContainer/FilmContainer";
+import Reviews from "../components/Reviews/Reviews";
 // import Video from "../components/Video/Video";
 
 const cx = classNames.bind(styles);
@@ -33,18 +33,20 @@ const Details = () => {
     const [isShowMoreText, setIsShowMoreText] = useState<boolean>(false);
     const [isShowMore, setIsShowMore] = useState<any>(false);
     const [isLike, setIsLike] = useState<boolean>(false);
+    const [reviews, setReviews] = useState<any>(undefined);
+    const [totalReviews, setTotalReviews] = useState<number>(0);
+
+    const getReviewFilm = async (page = 1) => {
+        const res: any = await filmsAPI.reviews(movieId, { page });
+        console.log(res);
+        setTotalReviews(res.total_results);
+        setReviews(res.results);
+    };
 
     useEffect(() => {
         const getFilmDetails = async () => {
             const res: any = await filmsAPI.details(movieId);
             setFilm(res);
-            console.log(res);
-        };
-
-        const getReviewFilm = async () => {
-            const res: any = await filmsAPI.reviews(movieId);
-            // setFilm(res);
-            console.log(res);
         };
 
         getFilmDetails();
@@ -71,7 +73,7 @@ const Details = () => {
     };
 
     return (
-        <FilmContainer>
+        <>
             {film && (
                 <div className={cx("film-cover")}>
                     <div className={cx("film")}>
@@ -124,7 +126,7 @@ const Details = () => {
                                 <span className={cx("base-infor-country")}>
                                     {film?.production_countries &&
                                         film?.production_countries[0]
-                                            .iso_3166_1}
+                                            ?.iso_3166_1}
                                 </span>
                                 {/* <span className={cx("base-infor-time">
                                         {film.time}
@@ -252,6 +254,7 @@ const Details = () => {
                                             {/* {film.type} */}
                                         </span>
                                     </div>
+
                                     <div
                                         className={cx("show-all")}
                                         onClick={() => {
@@ -264,6 +267,12 @@ const Details = () => {
                                 </div>
                             )}
                         </div>
+                        {reviews && (
+                            <Reviews
+                                reviews={reviews}
+                                total_reviews={totalReviews}
+                            />
+                        )}
                     </div>
 
                     {/* {episodes && (
@@ -350,7 +359,7 @@ const Details = () => {
                         </div>
                     </div>
                 )} */}
-        </FilmContainer>
+        </>
     );
 };
 

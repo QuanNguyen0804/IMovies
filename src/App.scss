@@ -59,3 +59,19 @@ a {
         background-color: var(--primary) !important;
     }
 }
+
+// Comment Ant
+.ant-list-header {
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+.ant-comment-content-author-name {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: var(--primary) !important;
+}
+
+.ant-comment-content-author {
+    justify-content: space-between !important;
+}
