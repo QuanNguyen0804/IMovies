@@ -37,6 +37,11 @@ const filmsApi = {
         const url = `/genre/movie/list`;
         return httpRequest.get(url, { params: { ...option } });
     },
+
+    credits: (movieId: number, option?: object) => {
+        const url = `movie/${movieId}/credits`;
+        return httpRequest.get(url, { params: { ...option } });
+    },
 };
 
 export default filmsApi;

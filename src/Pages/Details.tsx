@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 
@@ -19,6 +19,8 @@ import styles from "./Details.module.scss";
 import { FilmDetails } from "../interface";
 import filmsAPI from "../services/filmsAPI";
 import Reviews from "../components/Reviews/Reviews";
+import Header from "../components/Header/Header";
+import VideoMedia from "../components/VideoMedia/VideoMedia";
 // import Video from "../components/Video/Video";
 
 const cx = classNames.bind(styles);
@@ -35,10 +37,12 @@ const Details = () => {
     const [isLike, setIsLike] = useState<boolean>(false);
     const [reviews, setReviews] = useState<any>(undefined);
     const [totalReviews, setTotalReviews] = useState<number>(0);
+    const [casts, setCasts] = useState<any>(undefined);
+    const [isWatching, setIsWatching] = useState<boolean>(false);
+    const videoRef: any = useRef(null);
 
     const getReviewFilm = async (page = 1) => {
         const res: any = await filmsAPI.reviews(movieId, { page });
-        console.log(res);
         setTotalReviews(res.total_results);
         setReviews(res.results);
     };
@@ -49,16 +53,16 @@ const Details = () => {
             setFilm(res);
         };
 
+        const getCasts = async () => {
+            const res: any = await filmsAPI.credits(movieId);
+            console.log(res);
+            setCasts(res.cast);
+        };
+
         getFilmDetails();
         getReviewFilm();
+        getCasts();
     }, [movieId]);
-
-    // const handleChangeEpisode = (epis: number) => {
-    //     setEpisode(epis);
-    //     setTimeout(() => {
-    //         window.scrollTo(0, 9999);
-    //     }, 200);
-    // };
 
     const handleShowLessMoreText = (
         text: string,
@@ -72,10 +76,28 @@ const Details = () => {
         return text.slice(0, limitChar) + "...";
     };
 
+    const handleRuntime = (runTime: string) => {
+        if (!runTime) return "";
+
+        const numTime = Number(runTime);
+        const hour = (numTime - (numTime % 60)) / 60;
+        const minutes = numTime % 60;
+        return (
+            (hour < 10 ? `0${hour}:` : `${hour}:`) +
+            (minutes < 10 ? `0${minutes}'` : `${minutes}'`)
+        );
+    };
+
     return (
         <>
+            <Header />
             {film && (
                 <div className={cx("film-cover")}>
+                    <img
+                        className={cx("film-background")}
+                        src={`${process.env.REACT_APP_PATH_IMAGE}${film.backdrop_path}`}
+                    />
+
                     <div className={cx("film")}>
                         <div className={cx("film-image")}>
                             <img
@@ -83,15 +105,30 @@ const Details = () => {
                                 src={`${process.env.REACT_APP_PATH_IMAGE}${film.poster_path}`}
                                 alt={film.title}
                             />
-                            <div className={cx("trailer")}>
+                            <div
+                                className={
+                                    isWatching
+                                        ? cx("watch-btn-disable")
+                                        : cx("watch-btn")
+                                }
+                                onClick={() => {
+                                    !isWatching && setIsWatching(true);
+
+                                    setTimeout(() => {
+                                        videoRef?.current.scrollIntoView({
+                                            behavior: "smooth",
+                                        });
+                                    }, 300);
+                                }}
+                            >
                                 <span>
                                     <FontAwesomeIcon
-                                        className={cx("trailer-play-icon")}
+                                        className={cx("watch-play-icon")}
                                         icon={faCirclePlay}
                                     />
-                                    WATCH TRAILER
+                                    WATCH NOW
                                 </span>
-                                <span>00:46</span>
+                                <span>{handleRuntime(film.runtime)}</span>
                             </div>
                         </div>
                         <div className={cx("film-info")}>
@@ -187,7 +224,29 @@ const Details = () => {
                             <div className={cx("creators")}>
                                 <p className={cx("creator-title")}>CREATORS</p>
                                 <span className={cx("creator-list")}>
-                                    Mark Gatiss, Steven Moffat
+                                    {film?.production_companies
+                                        ? film.production_companies.map(
+                                              (pdc: any, index: number) => {
+                                                  return (
+                                                      <span
+                                                          className={cx(
+                                                              "creator-list"
+                                                          )}
+                                                          key={pdc.id}
+                                                      >
+                                                          {pdc.name}
+                                                          {film
+                                                              .production_companies
+                                                              .length -
+                                                              1 ===
+                                                          index
+                                                              ? ""
+                                                              : ", "}
+                                                      </span>
+                                                  );
+                                              }
+                                          )
+                                        : ""}
                                 </span>
                             </div>
                             <div className={cx("stars")}>
@@ -238,12 +297,49 @@ const Details = () => {
                                     </div>
                                     <div className={cx("stars")}>
                                         <p className={cx("creator-title")}>
+                                            COUNTRIES
+                                        </p>
+                                        {film?.production_countries
+                                            ? film.production_countries.map(
+                                                  (cnt: any, index: number) => {
+                                                      return (
+                                                          <span
+                                                              className={cx(
+                                                                  "creator-list"
+                                                              )}
+                                                              key={index}
+                                                          >
+                                                              {cnt.name}
+                                                              {film
+                                                                  .production_countries
+                                                                  .length -
+                                                                  1 ===
+                                                              index
+                                                                  ? ""
+                                                                  : ", "}
+                                                          </span>
+                                                      );
+                                                  }
+                                              )
+                                            : ""}
+                                    </div>
+                                    <div className={cx("stars")}>
+                                        <p className={cx("creator-title")}>
                                             STATUS
                                         </p>
                                         <span className={cx("creator-list")}>
                                             {film.status}
                                             <br />
                                             {film.release_date}
+                                        </span>
+                                    </div>
+                                    <div className={cx("stars")}>
+                                        <p className={cx("creator-title")}>
+                                            TIMES
+                                        </p>
+                                        <span className={cx("creator-list")}>
+                                            {film.runtime && film.runtime}
+                                            {" minutes"}
                                         </span>
                                     </div>
                                     <div className={cx("stars")}>
@@ -267,98 +363,24 @@ const Details = () => {
                                 </div>
                             )}
                         </div>
+
+                        {/*  Video */}
+                        {isWatching && (
+                            <VideoMedia imdbId={film.imdb_id} ref={videoRef} />
+                        )}
+                        {/*  End Video */}
+
+                        {/* Reviews */}
                         {reviews && (
                             <Reviews
                                 reviews={reviews}
                                 total_reviews={totalReviews}
                             />
                         )}
+                        {/*  End Reviews */}
                     </div>
-
-                    {/* {episodes && (
-                            <div className={cx("episodes">
-                                <div className={cx("episode-list">
-                                    {episodes.server_data.map(
-                                        (ser: any, index: number) => {
-                                            return (
-                                                <button
-                                                    className={
-                                                        index == episode
-                                                            ? "episode active"
-                                                            : "episode"
-                                                    }
-                                                    onClick={() =>
-                                                        handleChangeEpisode(index)
-                                                    }
-                                                    key={index}
-                                                >
-                                                    EPISODE {ser.name}
-                                                </button>
-                                            );
-                                        }
-                                    )}
-                                </div>
-
-                                <div className={cx("episodes-content">
-                                    <div className={cx("episode-header">
-                                        <p className={cx("title">EPISODES</p>
-                                        <div className={cx("grid">
-                                            <FontAwesomeIcon
-                                                className={cx("grid-icon"
-                                                icon={faList}
-                                            />
-                                            <FontAwesomeIcon
-                                                className={cx("grid-icon grid-active"
-                                                icon={faGrip}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={cx("video-list">
-                                        {episodes.server_data.map(
-                                            (ser: any, index: number) => {
-                                                return (
-                                                    <Video
-                                                        key={index}
-                                                        urlImage={film.poster_url}
-                                                        name={ser.filename}
-                                                        rating={75}
-                                                        onClick={() => {
-                                                            handleChangeEpisode(
-                                                                index
-                                                            );
-                                                        }}
-                                                    />
-                                                );
-                                            }
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
-                        )} */}
                 </div>
             )}
-
-            {/* {episode >= 0 && episodes && (
-                    <div className={cx("watching-video">
-                        <h4 className={cx("video-name">
-                            {episodes.server_data[episode]?.filename}
-                        </h4>
-                        <div className={cx("video-content">
-                            {episodes.server_data[episode]?.link_embed ? (
-                                <iframe
-                                    src={episodes.server_data[episode]?.link_embed}
-                                    allowFullScreen
-                                    loading="lazy"
-                                />
-                            ) : (
-                                <Skeleton
-                                    className={cx("video-loading"
-                                    variant="rectangular"
-                                />
-                            )}
-                        </div>
-                    </div>
-                )} */}
         </>
     );
 };

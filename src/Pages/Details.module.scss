@@ -4,13 +4,31 @@
     display: flex;
     width: 936px;
     padding: 68px 88px;
-    margin-top: 8px;
+    margin-top: calc(var(--header-height) + 14px);
     margin-bottom: 4px;
     margin-left: auto;
     margin-right: auto;
     border: 1px solid #010006;
     border-radius: 4px;
-    background-color: #262834;
+    position: relative;
+    // background-color: #262834;
+
+    .film-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: -10;
+        -webkit-mask-image: -webkit-gradient(
+            linear,
+            left top,
+            left bottom,
+            from(rgba(0, 0, 0, 0.5)),
+            to(rgba(0, 0, 0, 0))
+        );
+        border-radius: 4px;
+    }
 
     @include mobile {
         width: 100%;
@@ -34,27 +52,40 @@
 
     .film-image {
         max-width: 100%;
-        margin-right: 28px;
+        margin-right: 24px;
 
         .image {
             width: var(--image-with);
-            height: 280px;
-            // border-radius: 8px;
+            // height: 280px;
+            max-height: 360px;
+            border-radius: 8px;
         }
 
-        .trailer {
+        .watch-btn,
+        .watch-btn-disable {
+            width: 180px;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             align-items: center;
-            font-size: 11px;
-            color: #b0b3ba;
-            margin-top: 4px;
+            padding: 6px 4px;
+            margin: 4px auto 0;
+
+            color: #fff;
+            font-weight: 600;
+
+            border-radius: 50px;
+            background-color: var(--primary);
             cursor: pointer;
 
-            .trailer-play-icon {
-                font-size: 14px;
+            .watch-play-icon {
+                font-size: 16px;
                 margin-right: 6px;
             }
+        }
+
+        .watch-btn-disable {
+            opacity: 0.5;
+            cursor: default;
         }
     }
 
@@ -155,7 +186,7 @@
     .describe {
         margin-top: 18px;
         font-size: 14px;
-        color: #a5a8af;
+        // color: #a5a8af;
         line-height: 1.2rem;
         // text-align: justify;
     }

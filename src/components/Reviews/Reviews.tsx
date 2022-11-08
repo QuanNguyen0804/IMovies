@@ -1,5 +1,8 @@
 import { Comment, List, Tooltip } from "antd";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane as faPaperPlaneSL } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import classNames from "classnames/bind";
 
 import "antd/lib/comment/index";
@@ -17,7 +20,6 @@ interface Props {
 
 const Reviews: React.FC<Props> = (props) => {
     const { reviews, total_reviews } = props;
-    console.log(reviews);
 
     const handleImagePath = (url: string) => {
         if (!url)
@@ -38,22 +40,31 @@ const Reviews: React.FC<Props> = (props) => {
     });
 
     return (
-        <List
-            className={cx("comment-list")}
-            header={`REVIEWS ${total_reviews}`}
-            itemLayout="horizontal"
-            dataSource={data}
-            renderItem={(item: any) => (
-                <li>
-                    <Comment
-                        author={item.author}
-                        avatar={item.avatar}
-                        content={item.content}
-                        datetime={item.datetime}
-                    />
-                </li>
-            )}
-        />
+        <div className={cx("comment-container")}>
+            <List
+                className={cx("comment-list")}
+                header={`REVIEWS ${total_reviews}`}
+                itemLayout="horizontal"
+                dataSource={data}
+                renderItem={(item: any) => (
+                    <li>
+                        <Comment
+                            author={item.author}
+                            avatar={item.avatar}
+                            content={item.content}
+                            datetime={item.datetime}
+                        />
+                    </li>
+                )}
+            />
+
+            <div className={cx("comment-send")}>
+                <input type="text" className={cx("input")} />
+                <span className={cx("btn-send")}>
+                    <FontAwesomeIcon icon={faPaperPlaneSL} />
+                </span>
+            </div>
+        </div>
     );
 };
 
