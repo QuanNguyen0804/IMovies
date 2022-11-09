@@ -1,3 +1,5 @@
+@use "./mixin.scss" as *;
+
 :root {
     --primary: #f84a85;
     --header-height: 48px;
@@ -54,6 +56,9 @@ a {
 
     button {
         color: #fff !important;
+        @include mobile {
+            min-width: 28px;
+        }
     }
 
     .Mui-selected {
@@ -75,4 +80,8 @@ a {
 
 .ant-comment-content-author {
     justify-content: space-between !important;
+}
+
+.ant-list-empty-text {
+    display: none;
 }

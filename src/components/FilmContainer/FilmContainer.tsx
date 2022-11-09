@@ -15,10 +15,9 @@ const FilmContainer: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     ref
 ) => {
     const { children, className = "" } = props;
-    const cName: string = `film-container ${className}`;
 
     return (
-        <div ref={ref} className={cx("filmContainer", `${className}`)}>
+        <div ref={ref} className={cx("film-container", `${className}`)}>
             {children}
         </div>
     );

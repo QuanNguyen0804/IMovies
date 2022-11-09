@@ -59,7 +59,11 @@ const Reviews: React.FC<Props> = (props) => {
             />
 
             <div className={cx("comment-send")}>
-                <input type="text" className={cx("input")} />
+                <input
+                    type="text"
+                    className={cx("input")}
+                    placeholder="Type your comment..."
+                />
                 <span className={cx("btn-send")}>
                     <FontAwesomeIcon icon={faPaperPlaneSL} />
                 </span>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import classNames from "classnames/bind";
 
+import { setIsSidebar } from "../../app/statesSlice";
 import styles from "./Header.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
@@ -10,6 +11,8 @@ import {
     faMagnifyingGlass,
     faGear,
     faChevronDown,
+    faBars,
+    faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 const cx = classNames.bind(styles);
@@ -20,6 +23,7 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
     const param = useParams();
     const query: string = param.query || "";
+    const isSidebar = useSelector((state: any) => state.statesStore.isSidebar);
 
     useEffect(() => {
         setSearchValue(query);
@@ -68,6 +72,22 @@ const Header: React.FC = () => {
                     <span className={cx("user_icon")}>
                         <FontAwesomeIcon icon={faChevronDown} />
                     </span>
+                </div>
+
+                <div
+                    onClick={() => {
+                        dispatch(setIsSidebar(!isSidebar));
+                    }}
+                >
+                    {!isSidebar ? (
+                        <div className={cx("menu-bars")}>
+                            <FontAwesomeIcon icon={faBars} />
+                        </div>
+                    ) : (
+                        <div className={cx("menu-close")}>
+                            <FontAwesomeIcon icon={faXmark} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

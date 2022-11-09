@@ -14,7 +14,41 @@
     // top: 0;
     // left: 120px;
 
+    @include tablet {
+        // display: none;
+        width: 25%;
+        height: 100%;
+        margin-right: 0;
+
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 100;
+    }
+
     @include mobile {
+        // display: none;
+        width: 50%;
+        height: 100%;
+        margin-right: 0;
+
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 100;
+    }
+}
+
+.overlay {
+    @include desktop {
         display: none;
     }
+
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.6);
 }

@@ -1,6 +1,6 @@
 @use "../../mixin.scss" as *;
 
-.filmContainer {
+.film-container {
     display: flex;
     width: calc(#{1112px} - #{260px});
     max-width: 100%;

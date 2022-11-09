@@ -18,8 +18,12 @@
     top: 0;
     z-index: 99;
 
+    @include tablet {
+        padding: 4px 8px;
+    }
+
     @include mobile {
-        padding: 4px 12px;
+        padding: 4px 8px;
     }
 }
 
@@ -30,6 +34,15 @@
     font-weight: bold;
     color: var(--primary);
     line-height: var(--header-height);
+
+    @include tablet {
+        width: 146px;
+    }
+
+    @include mobile {
+        width: unset;
+        margin-right: 12px;
+    }
 }
 
 .header_content {
@@ -39,7 +52,8 @@
     align-items: center;
 
     @include mobile {
-        width: 80%;
+        width: 60%;
+        margin-right: 8px;
     }
 
     .search {
@@ -96,6 +110,10 @@
         border-left: 1px solid #fff;
         border-right: 1px solid #fff;
 
+        @include tablet {
+            display: none;
+        }
+
         @include mobile {
             display: none;
         }
@@ -119,6 +137,7 @@
         cursor: pointer;
 
         @include mobile {
+            display: none;
         }
 
         .avatar {
@@ -133,5 +152,27 @@
         .name {
             margin: 0 6px;
         }
+    }
+
+    .menu-bars,
+    .menu-close {
+        display: none;
+        padding: 4px;
+        margin-left: 16px;
+        margin-bottom: 4px;
+        font-size: 22px;
+
+        @include tablet {
+            display: block;
+            margin-right: 6px;
+        }
+
+        @include mobile {
+            display: block;
+        }
+    }
+
+    .menu-close {
+        font-size: 30px;
     }
 }

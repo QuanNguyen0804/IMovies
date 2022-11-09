@@ -21,7 +21,7 @@ import filmsAPI from "../services/filmsAPI";
 import Reviews from "../components/Reviews/Reviews";
 import Header from "../components/Header/Header";
 import VideoMedia from "../components/VideoMedia/VideoMedia";
-// import Video from "../components/Video/Video";
+import Sidebar from "../components/Sidebar/Sidebar";
 
 const cx = classNames.bind(styles);
 
@@ -30,8 +30,6 @@ const Details = () => {
     const movieId: number = Number(param.id) || 0;
 
     const [film, setFilm] = useState<FilmDetails>();
-    //     const [episode, setEpisode] = useState<number>(-1);
-    //     const [episodes, setEpisodes] = useState<Episodes>();
     const [isShowMoreText, setIsShowMoreText] = useState<boolean>(false);
     const [isShowMore, setIsShowMore] = useState<any>(false);
     const [isLike, setIsLike] = useState<boolean>(false);
@@ -91,6 +89,9 @@ const Details = () => {
     return (
         <>
             <Header />
+            <div className={cx("sidebar")}>
+                <Sidebar />
+            </div>
             {film && (
                 <div className={cx("film-cover")}>
                     <img
@@ -165,9 +166,7 @@ const Details = () => {
                                         film?.production_countries[0]
                                             ?.iso_3166_1}
                                 </span>
-                                {/* <span className={cx("base-infor-time">
-                                        {film.time}
-                                    </span> */}
+
                                 <span className={cx("base-infor-gender")}>
                                     {film?.genres && film?.genres[0]?.name}
                                 </span>
@@ -192,10 +191,6 @@ const Details = () => {
                                 </span>
                             </div>
 
-                            {/* <p
-                                    className={cx("describe"
-                                    dangerouslySetInnerHTML={{ __html: film.content }}
-                                /> */}
                             <p className={cx("describe")}>
                                 {handleShowLessMoreText(
                                     film.overview,

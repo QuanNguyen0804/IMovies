@@ -1,4 +1,7 @@
 import React from "react";
+import classNames from "classnames/bind";
+import styles from "./Menu.module.scss";
+
 import { NavLink } from "react-router-dom";
 
 interface Props {
@@ -9,6 +12,8 @@ interface Props {
     isActive: boolean;
 }
 
+const cx = classNames.bind(styles);
+
 const MenuItem: React.FC<Props> = ({
     icon,
     iconActive,
@@ -16,15 +21,15 @@ const MenuItem: React.FC<Props> = ({
     to,
     isActive,
 }) => {
-    let cName = "menu-item";
-    if (to) cName += " menu-item-hover";
-    if (isActive) cName += " menu-item-active";
+    let cName = cx("menu-item");
+    if (to) cName += " " + cx("menu-item-hover");
+    if (isActive) cName += " " + cx("menu-item-active");
 
     return (
         <NavLink className={cName} to={to}>
-            <span className="menu-icon">{icon}</span>
-            <span className="menu-icon">{iconActive}</span>
-            <span className="menu-title">{title}</span>
+            <span className={cx("menu-icon")}>{icon}</span>
+            <span className={cx("menu-icon")}>{iconActive}</span>
+            <span className={cx("menu-title")}>{title}</span>
         </NavLink>
     );
 };
