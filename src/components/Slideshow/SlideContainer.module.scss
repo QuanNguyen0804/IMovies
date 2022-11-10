@@ -1,0 +1,44 @@
+.slide-show {
+    width: 100%;
+    position: relative;
+
+    .prev-btn,
+    .next-btn {
+        position: absolute;
+        top: 0;
+        z-index: 10;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 50px;
+        height: 100%;
+        font-size: 32px;
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    .prev-btn {
+        left: 0;
+        &:hover {
+            opacity: 1;
+            background-image: linear-gradient(
+                to left,
+                rgba(255, 0, 0, 0),
+                rgba(220, 220, 220, 0.4)
+            );
+        }
+    }
+    .next-btn {
+        right: 0;
+        &:hover {
+            opacity: 1;
+            background-image: linear-gradient(
+                to right,
+                rgba(255, 0, 0, 0),
+                rgba(220, 220, 220, 0.4)
+            );
+        }
+    }
+}

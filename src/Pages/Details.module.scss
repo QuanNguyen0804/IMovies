@@ -113,6 +113,12 @@
 
     .film-info {
         flex: 1;
+        width: 100%;
+
+        @include desktop {
+            width: calc(100% - var(--image-with) - 24px);
+        }
+        // max-width: inherit;
         // min-width: 360px;
     }
 
@@ -215,7 +221,7 @@
 
     .show-all {
         text-align: center;
-        margin-top: 6px;
+        margin-top: 12px;
         font-size: 12px;
         cursor: pointer;
     }
@@ -231,6 +237,10 @@
 
         .creator-list {
             color: var(--primary);
+        }
+
+        .casts {
+            margin-bottom: 8px;
         }
     }
 

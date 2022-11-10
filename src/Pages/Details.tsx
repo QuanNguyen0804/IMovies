@@ -22,6 +22,7 @@ import Reviews from "../components/Reviews/Reviews";
 import Header from "../components/Header/Header";
 import VideoMedia from "../components/VideoMedia/VideoMedia";
 import Sidebar from "../components/Sidebar/Sidebar";
+import Casts from "../components/Slideshow/Casts";
 
 const cx = classNames.bind(styles);
 
@@ -245,10 +246,10 @@ const Details = () => {
                                 </span>
                             </div>
                             <div className={cx("stars")}>
-                                <p className={cx("creator-title")}>STARS</p>
-                                <span className={cx("creator-list")}>
-                                    Mark Gatiss, Steven Moffat
-                                </span>
+                                <p className={cx("creator-title", "casts")}>
+                                    CASTS
+                                </p>
+                                {casts && <Casts casts={casts} />}
                             </div>
 
                             {!isShowMore ? (

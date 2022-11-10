@@ -8,11 +8,7 @@
     margin-right: 4px;
     margin-top: 56px;
     background-color: #111;
-    // border-radius: 4px;
-
-    // position: fixed;
-    // top: 0;
-    // left: 120px;
+    animation: slideIn linear 0.3s;
 
     @include tablet {
         // display: none;
@@ -51,4 +47,27 @@
     left: 0;
     z-index: 50;
     background-color: rgba(0, 0, 0, 0.6);
+    animation: fadeIn ease-in 0.3s;
+}
+
+@keyframes slideIn {
+    from {
+        right: -120px;
+        opacity: 0.8;
+    }
+
+    to {
+        right: 0;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
 }

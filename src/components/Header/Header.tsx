@@ -35,7 +35,16 @@ const Header: React.FC = () => {
 
     return (
         <div className={cx("header")}>
-            <div className={cx("logo")}>IMovies</div>
+            <div className={cx("logo")}>
+                <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                        navigate("/movies");
+                    }}
+                >
+                    IMovies
+                </span>
+            </div>
             <div className={cx("header_content")}>
                 <div className={cx("search")}>
                     <input

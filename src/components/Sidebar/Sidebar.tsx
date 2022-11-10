@@ -33,7 +33,13 @@ const Sidebar = () => {
         };
 
         getGen();
+
+        !(window.screen.width > 1024) && dispatch(setIsSidebar(false));
     }, []);
+
+    useEffect(() => {
+        !(window.screen.width > 1024) && dispatch(setIsSidebar(false));
+    }, [genre]);
 
     return (
         <>
