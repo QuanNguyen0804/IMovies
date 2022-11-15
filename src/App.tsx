@@ -2,14 +2,14 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import "./App.scss";
-import Details from "./Pages/Details/Details";
-import Home from "./Pages/Home";
-import Search from "./Pages/Search";
-import Layout from "./Pages/Layout";
-import NotFound from "./Pages/NotFound";
-import Genres from "./Pages/Genres";
-import Login from "./Pages/Login/Login";
-import Signup from "./Pages/Signup/Signup";
+import Details from "./pages/Details/Details";
+import Home from "./pages/Home";
+import Search from "./pages/Search";
+import Layout from "./pages/Layout";
+import NotFound from "./pages/NotFound";
+import Genres from "./pages/Genres";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
 
 const App: React.FC = () => {
     return (

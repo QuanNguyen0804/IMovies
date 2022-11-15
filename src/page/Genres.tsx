@@ -6,7 +6,7 @@ import classNames from "classnames/bind";
 
 import styles from "./Pages.module.scss";
 import { setFilmStore } from "../app/filmSlice";
-import FilmContainer from "..//components/FilmContainer/FilmContainer";
+import FilmContainer from "../components/FilmContainer/FilmContainer";
 import FilmItems from "../components/FilmItems/FilmItems";
 import filmsApi from "../services/filmsAPI";
 import { Film, Films } from "../interface";
