@@ -17,7 +17,7 @@ import MenuItem from "../Menu/MenuItem";
 import filmsApi from "../../services/filmsAPI";
 import route from "../../config/routes";
 import { Genre } from "../../interface";
-import useDisappearCss from "../../Hooks/useDisappearCss";
+import useDisappearCss from "../../hooks/useDisappearCss";
 
 const cx = classNames.bind(styles);
 
@@ -26,11 +26,11 @@ const Sidebar = () => {
     const genre = useSelector((state: any) => state.filmStore.genre);
 
     const iSbar = useSelector((state: any) => state.statesStore.isSidebar);
-    const isSidebar = useDisappearCss(
-        [cx("sidebar"), "slide-to-right", cx("overlay"), "fade-in"],
-        400,
-        iSbar
-    );
+    // const isSidebar = useDisappearCss(
+    //     [cx("sidebar"), "slide-to-right", cx("overlay"), "fade-in"],
+    //     400,
+    //     iSbar
+    // );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const Sidebar = () => {
 
     return (
         <>
-            {isSidebar && (
+            {iSbar && (
                 <>
                     <div
                         className={cx("overlay")}
