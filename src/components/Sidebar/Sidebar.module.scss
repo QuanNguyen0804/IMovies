@@ -33,6 +33,17 @@
         right: 0;
         z-index: 100;
     }
+
+    .genres {
+        @include tablet {
+            height: 360px;
+            overflow-y: scroll;
+        }
+        @include mobile {
+            height: 360px;
+            overflow-y: scroll;
+        }
+    }
 }
 
 .overlay {
@@ -52,7 +63,7 @@
 
 @keyframes slideIn {
     from {
-        right: -120px;
+        right: -200px;
         opacity: 0.8;
     }
 
@@ -64,7 +75,7 @@
 
 @keyframes fadeIn {
     from {
-        opacity: 0.5;
+        opacity: 0.4;
     }
 
     to {

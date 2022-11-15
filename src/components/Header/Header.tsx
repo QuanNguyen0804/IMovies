@@ -14,6 +14,7 @@ import {
     faBars,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
+import { setUser } from "../../app/userSlice";
 
 const cx = classNames.bind(styles);
 
@@ -24,13 +25,34 @@ const Header: React.FC = () => {
     const param = useParams();
     const query: string = param.query || "";
     const isSidebar = useSelector((state: any) => state.statesStore.isSidebar);
+    const genre = useSelector((state: any) => state.filmStore.genre);
+    const user = useSelector((state: any) => state.userStore.user);
+    const [placeholder, setPlaceholder] = useState("");
 
     useEffect(() => {
         setSearchValue(query);
     }, []);
 
+    useEffect(() => {
+        genre === "search" ? setSearchValue(query) : setSearchValue("");
+    }, [genre]);
+
     const handleSearch = () => {
+        if (!searchValue) {
+            setPlaceholder("Type your search...");
+            return;
+        }
+
         navigate(`/movies/search/${searchValue}/1`);
+    };
+
+    const handleSetSidebar = () => {
+        const bodyElem = document.getElementsByTagName("body")[0];
+        !isSidebar
+            ? bodyElem.classList.add("noscroll")
+            : bodyElem.classList.remove("noscroll");
+
+        dispatch(setIsSidebar(!isSidebar));
     };
 
     return (
@@ -51,6 +73,7 @@ const Header: React.FC = () => {
                         className={cx("search_input")}
                         type="text"
                         value={searchValue}
+                        placeholder={placeholder}
                         onChange={(e) => {
                             setSearchValue(e.target.value);
                         }}
@@ -75,29 +98,41 @@ const Header: React.FC = () => {
                         <FontAwesomeIcon icon={faBell} />
                     </span>
                 </div>
-                <div className={cx("user")}>
-                    <img src="./logo512.png" alt="" className={cx("avatar")} />
-                    <span className={cx("name")}>Quan</span>
-                    <span className={cx("user_icon")}>
-                        <FontAwesomeIcon icon={faChevronDown} />
-                    </span>
-                </div>
+                {Object.keys(user).length ? (
+                    <div className={cx("user")}>
+                        <img
+                            src="./logo512.png"
+                            alt=""
+                            className={cx("avatar")}
+                        />
+                        <span className={cx("name")}>{user.username}</span>
+                        <span className={cx("user_icon")}>
+                            <FontAwesomeIcon icon={faChevronDown} />
+                        </span>
+                    </div>
+                ) : (
+                    <button
+                        className={cx("login")}
+                        onClick={() => {
+                            navigate("/login");
+                        }}
+                    >
+                        Login
+                    </button>
+                )}
 
-                <div
-                    onClick={() => {
-                        dispatch(setIsSidebar(!isSidebar));
-                    }}
-                >
-                    {!isSidebar ? (
-                        <div className={cx("menu-bars")}>
-                            <FontAwesomeIcon icon={faBars} />
-                        </div>
-                    ) : (
-                        <div className={cx("menu-close")}>
-                            <FontAwesomeIcon icon={faXmark} />
-                        </div>
-                    )}
-                </div>
+                {!isSidebar ? (
+                    <div className={cx("menu-bars")} onClick={handleSetSidebar}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </div>
+                ) : (
+                    <div
+                        className={cx("menu-close")}
+                        onClick={handleSetSidebar}
+                    >
+                        <FontAwesomeIcon icon={faXmark} />
+                    </div>
+                )}
             </div>
         </div>
     );

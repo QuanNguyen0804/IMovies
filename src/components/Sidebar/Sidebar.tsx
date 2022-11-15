@@ -17,13 +17,20 @@ import MenuItem from "../Menu/MenuItem";
 import filmsApi from "../../services/filmsAPI";
 import route from "../../config/routes";
 import { Genre } from "../../interface";
+import useDisappearCss from "../../Hooks/useDisappearCss";
 
 const cx = classNames.bind(styles);
 
 const Sidebar = () => {
     const [genres, setGenres] = useState<[Genre]>();
     const genre = useSelector((state: any) => state.filmStore.genre);
-    const isSidebar = useSelector((state: any) => state.statesStore.isSidebar);
+
+    const iSbar = useSelector((state: any) => state.statesStore.isSidebar);
+    const isSidebar = useDisappearCss(
+        [cx("sidebar"), "slide-to-right", cx("overlay"), "fade-in"],
+        400,
+        iSbar
+    );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -34,12 +41,19 @@ const Sidebar = () => {
 
         getGen();
 
-        !(window.screen.width > 1024) && dispatch(setIsSidebar(false));
+        !(window.screen.width > 1024) && handleSetSidebar();
     }, []);
 
     useEffect(() => {
-        !(window.screen.width > 1024) && dispatch(setIsSidebar(false));
+        !(window.screen.width > 1024) && handleSetSidebar();
     }, [genre]);
+
+    const handleSetSidebar = () => {
+        const bodyElem = document.getElementsByTagName("body")[0];
+        bodyElem.classList.remove("noscroll");
+
+        dispatch(setIsSidebar(false));
+    };
 
     return (
         <>
@@ -47,9 +61,7 @@ const Sidebar = () => {
                 <>
                     <div
                         className={cx("overlay")}
-                        onClick={() => {
-                            dispatch(setIsSidebar(!isSidebar));
-                        }}
+                        onClick={handleSetSidebar}
                     ></div>
                     <div className={cx("sidebar")}>
                         <Menu>

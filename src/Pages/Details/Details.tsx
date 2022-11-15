@@ -16,13 +16,13 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import classNames from "classnames/bind";
 
 import styles from "./Details.module.scss";
-import { FilmDetails } from "../interface";
-import filmsAPI from "../services/filmsAPI";
-import Reviews from "../components/Reviews/Reviews";
-import Header from "../components/Header/Header";
-import VideoMedia from "../components/VideoMedia/VideoMedia";
-import Sidebar from "../components/Sidebar/Sidebar";
-import Casts from "../components/Slideshow/Casts";
+import { FilmDetails } from "../../interface";
+import filmsAPI from "../../services/filmsAPI";
+import Reviews from "../../components/Reviews/Reviews";
+import Header from "../../components/Header/Header";
+import VideoMedia from "../../components/VideoMedia/VideoMedia";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Casts from "../../components/Slideshow/Casts";
 
 const cx = classNames.bind(styles);
 
@@ -54,7 +54,6 @@ const Details = () => {
 
         const getCasts = async () => {
             const res: any = await filmsAPI.credits(movieId);
-            console.log(res);
             setCasts(res.cast);
         };
 
@@ -249,7 +248,9 @@ const Details = () => {
                                 <p className={cx("creator-title", "casts")}>
                                     CASTS
                                 </p>
-                                {casts && <Casts casts={casts} />}
+                                {casts && casts.length && (
+                                    <Casts casts={casts} />
+                                )}
                             </div>
 
                             {!isShowMore ? (

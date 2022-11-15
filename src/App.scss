@@ -85,3 +85,34 @@ a {
 .ant-list-empty-text {
     display: none;
 }
+
+// close animation
+.slide-to-right {
+    animation: bounce-out 0.42s ease-in !important;
+}
+
+.fade-in {
+    animation: fade-out 0.42s ease-in !important;
+}
+
+@keyframes bounce-out {
+    from {
+        right: 0;
+        opacity: 1;
+    }
+
+    to {
+        right: -220px;
+        opacity: 0.4;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

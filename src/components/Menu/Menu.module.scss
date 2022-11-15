@@ -31,10 +31,3 @@
         font-weight: 700;
     }
 }
-
-.genres {
-    @include mobile {
-        height: 360px;
-        overflow-y: scroll;
-    }
-}

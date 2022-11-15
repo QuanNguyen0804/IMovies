@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "classnames/bind";
 
-import styles from "./Home.module.scss";
+import styles from "./Pages.module.scss";
 import { setFilmStore } from "../app/filmSlice";
 import FilmContainer from "../components/FilmContainer/FilmContainer";
 import FilmItems from "../components/FilmItems/FilmItems";
@@ -28,6 +28,7 @@ const Search = () => {
 
     useEffect(() => {
         getListFilm(page);
+        console.log(query);
         currentPage && setPage(Number(currentPage));
     }, []);
 
