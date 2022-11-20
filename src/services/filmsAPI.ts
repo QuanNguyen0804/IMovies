@@ -42,6 +42,11 @@ const filmsApi = {
         const url = `movie/${movieId}/credits`;
         return httpRequest.get(url, { params: { ...option } });
     },
+
+    trailer: (movieId: number, option?: object) => {
+        const url = `movie/${movieId}/videos`;
+        return httpRequest.get(url, { params: { ...option } });
+    },
 };
 
 export default filmsApi;

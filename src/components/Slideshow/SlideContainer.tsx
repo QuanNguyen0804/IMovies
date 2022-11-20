@@ -17,6 +17,7 @@ interface Props {
     slidesToShow?: number;
     isAutoPlay?: boolean;
     dots?: boolean;
+    slidesToScroll?: number;
 }
 
 const cx = classNames.bind(styles);
@@ -28,6 +29,7 @@ const SlideshowContainer: React.FC<Props> = (props) => {
         slidesToShow = 1,
         isAutoPlay = true,
         dots = true,
+        slidesToScroll = 1,
     } = props;
     const slider: any = useRef(null);
 
@@ -38,6 +40,7 @@ const SlideshowContainer: React.FC<Props> = (props) => {
                 ref={slider}
                 slidesToShow={slidesToShow}
                 dots={dots}
+                slidesToScroll={slidesToScroll}
             >
                 {children}
             </Carousel>

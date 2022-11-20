@@ -1,5 +1,5 @@
-import React, { forwardRef, ForwardRefRenderFunction } from "react";
 import classNames from "classnames/bind";
+import { useEffect, useState } from "react";
 import videoProvideUrl from "../../config/videoProvide";
 
 import styles from "./VideoMedia.module.scss";
@@ -7,24 +7,41 @@ import styles from "./VideoMedia.module.scss";
 const cx = classNames.bind(styles);
 
 interface Props {
-    imdbId: number;
+    imdbId: string;
+    title: string;
 }
 
-const VideoMedia: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-    props,
-    ref
-) => {
-    const { imdbId } = props;
+const VideoMedia: React.FC<Props> = (props, ref) => {
+    const { imdbId, title } = props;
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 800);
+    }, []);
 
     return (
-        <div className={cx("media-cover")} ref={ref}>
-            <iframe
-                src={videoProvideUrl + imdbId}
-                className={cx("video-media")}
-                allowFullScreen
-            />
-        </div>
+        <>
+            <h3 className={cx("media-header")}>{title}</h3>
+            {!loading ? (
+                <div className={cx("media-cover")}>
+                    <iframe
+                        src={videoProvideUrl + imdbId}
+                        className={cx("video-media")}
+                        allowFullScreen
+                    />
+                </div>
+            ) : (
+                <div className={cx("loading")}>
+                    <div className={cx("lds-ripple")}>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 };
 
-export default forwardRef(VideoMedia);
+export default VideoMedia;

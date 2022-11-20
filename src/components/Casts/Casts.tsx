@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 import styles from "./Casts.module.scss";
 import { useNavigate } from "react-router-dom";
-import SlideshowContainer from "./SlideContainer";
+import SlideshowContainer from "../Slideshow/SlideContainer";
 
 interface Props {
     casts: any;
@@ -14,32 +14,36 @@ const cx = classNames.bind(styles);
 const Casts: React.FC<Props> = (props) => {
     const { casts } = props;
     const navigate = useNavigate();
-    const [slideToshow, setSlideToshow] = useState<number>(1);
+    const [slideToShow, setSlideToShow] = useState<number>(1);
+    const [slideToScroll, setSlideToScroll] = useState<number>(5);
     const [isArrow, setIsArrow] = useState<boolean>(true);
 
     useEffect(() => {
         const sWidth = window.screen.width;
 
         if (sWidth < 1024) {
-            setSlideToshow(sWidth / 100 - 1);
+            setSlideToShow(sWidth / 100 - 1);
+            setSlideToScroll(2);
             return;
         }
 
         if (casts.length < 6) {
             setIsArrow(false);
-            setSlideToshow(casts.length);
+            setSlideToShow(casts.length);
+            setSlideToScroll(1);
             return;
         }
 
-        setSlideToshow(6);
+        setSlideToShow(6);
     }, []);
 
     return (
         <SlideshowContainer
             isArrow={isArrow}
-            isAutoPlay={false}
-            slidesToShow={slideToshow}
+            isAutoPlay={true}
+            slidesToShow={slideToShow}
             dots={isArrow}
+            slidesToScroll={slideToScroll}
         >
             {casts.map((cast: any) => {
                 return (

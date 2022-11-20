@@ -1,0 +1,46 @@
+@use "../../mixin.scss" as *;
+
+.trailer {
+    width: 100%;
+    margin: 12px 0 24px;
+
+    @include mobile {
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .header {
+        font-size: 20px;
+        margin-bottom: 6px;
+    }
+
+    .episodes {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .episode {
+            padding: 6px 8px;
+            min-width: 36px;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .active {
+            color: #fff;
+            background-color: var(--primary);
+        }
+    }
+
+    .trailer-video {
+        width: 100%;
+        height: 560px;
+        border-radius: 8px;
+
+        @include mobile {
+            height: 260px;
+        }
+    }
+}

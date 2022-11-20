@@ -242,6 +242,24 @@
         .casts {
             margin-bottom: 8px;
         }
+
+        .genres {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 6px;
+            margin-bottom: 8px;
+        }
+
+        .genre {
+            padding: 2px 6px;
+            margin-right: 8px;
+            margin-bottom: 6px;
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
     }
 
     .stars {
@@ -340,28 +358,6 @@
                 border-radius: 10px;
             }
             overflow-x: scroll;
-        }
-    }
-}
-
-.watching-video {
-    width: 100%;
-    margin: 16px 0;
-
-    .video-name {
-        font-size: 22px;
-        color: var(--primary);
-        margin-left: 4px;
-        margin-bottom: 4px;
-    }
-
-    .video-content {
-        iframe {
-            width: 100%;
-            // height: 720px;
-            // padding-bottom: 56.25%;
-            aspect-ratio: 16/9;
-            border-radius: 4px;
         }
     }
 }

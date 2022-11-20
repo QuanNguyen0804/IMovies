@@ -13,13 +13,14 @@ import styles from "./FilmItems.module.scss";
 import { Film } from "../../interface";
 
 interface Props {
+    className?: string;
     film: any;
 }
 
 const cx = classNames.bind(styles);
 
 const FilmItems: React.FC<Props> = (props) => {
-    const { film } = props;
+    const { film, className = "" } = props;
     const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
     const imgElement = useRef<any>();
@@ -35,7 +36,7 @@ const FilmItems: React.FC<Props> = (props) => {
 
     return (
         <div
-            className={cx("film-items")}
+            className={cx("film-items", className)}
             onClick={() => handleOnclick(film.id)}
         >
             <img
@@ -70,7 +71,7 @@ const FilmItems: React.FC<Props> = (props) => {
                             icon={faStar}
                         />
                         <span className={cx("rating-num")}>
-                            {film.vote_average}
+                            {film.vote_average.toFixed(1)}
                         </span>
                     </span>
                 </div>

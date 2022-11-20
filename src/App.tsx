@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Genres from "./pages/Genres";
 import Login from "./pages/Login/Login";
 import Signup from "./pages/Signup/Signup";
+import Watching from "./pages/Watching/Watching";
 
 const App: React.FC = () => {
     return (
@@ -29,6 +30,7 @@ const App: React.FC = () => {
                     />
                 </Route>
                 <Route path="/movie/:id" element={<Details />} />
+                <Route path="/watching/:imdbId/:name" element={<Watching />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>

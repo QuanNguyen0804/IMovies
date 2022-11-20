@@ -1,0 +1,9 @@
+@use "../../mixin.scss" as *;
+
+.film {
+    width: unset !important;
+
+    @include mobile {
+        height: 240px !important;
+    }
+}

@@ -1,0 +1,31 @@
+@use "../../mixin.scss" as *;
+
+.sidebar {
+    @include desktop {
+        display: none;
+    }
+}
+
+.film-cover {
+    width: 1114px;
+    max-width: 100%;
+
+    margin-top: calc(var(--header-height) + 16px);
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 14px;
+
+    @include tablet {
+        width: calc(100% - 2 * 24px);
+        padding: 24px;
+        border: none;
+    }
+
+    @include mobile {
+        width: calc(100% - 2 * 12px);
+        padding: 10px;
+        border: none;
+        border-radius: 0;
+    }
+}

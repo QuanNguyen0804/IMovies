@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,9 +20,10 @@ import { FilmDetails } from "../../interface";
 import filmsAPI from "../../services/filmsAPI";
 import Reviews from "../../components/Reviews/Reviews";
 import Header from "../../components/Header/Header";
-import VideoMedia from "../../components/VideoMedia/VideoMedia";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Casts from "../../components/Slideshow/Casts";
+import Casts from "../../components/Casts/Casts";
+import Trailer from "../../components/Trailer/Trailer";
+import Similar from "../../components/Similar/Similar";
 
 const cx = classNames.bind(styles);
 
@@ -37,8 +38,7 @@ const Details = () => {
     const [reviews, setReviews] = useState<any>(undefined);
     const [totalReviews, setTotalReviews] = useState<number>(0);
     const [casts, setCasts] = useState<any>(undefined);
-    const [isWatching, setIsWatching] = useState<boolean>(false);
-    const videoRef: any = useRef(null);
+    const navigate = useNavigate();
 
     const getReviewFilm = async (page = 1) => {
         const res: any = await filmsAPI.reviews(movieId, { page });
@@ -60,6 +60,7 @@ const Details = () => {
         getFilmDetails();
         getReviewFilm();
         getCasts();
+        window.scrollTo(0, 0);
     }, [movieId]);
 
     const handleShowLessMoreText = (
@@ -82,7 +83,7 @@ const Details = () => {
         const minutes = numTime % 60;
         return (
             (hour < 10 ? `0${hour}:` : `${hour}:`) +
-            (minutes < 10 ? `0${minutes}'` : `${minutes}'`)
+            (minutes < 10 ? `0${minutes}'` : `${minutes}`)
         );
     };
 
@@ -107,20 +108,12 @@ const Details = () => {
                                 alt={film.title}
                             />
                             <div
-                                className={
-                                    isWatching
-                                        ? cx("watch-btn-disable")
-                                        : cx("watch-btn")
+                                className={cx("watch-btn")}
+                                onClick={() =>
+                                    navigate(
+                                        `/watching/${film.imdb_id}/${film.title}`
+                                    )
                                 }
-                                onClick={() => {
-                                    !isWatching && setIsWatching(true);
-
-                                    setTimeout(() => {
-                                        videoRef?.current.scrollIntoView({
-                                            behavior: "smooth",
-                                        });
-                                    }, 300);
-                                }}
                             >
                                 <span>
                                     <FontAwesomeIcon
@@ -269,28 +262,30 @@ const Details = () => {
                                         <p className={cx("creator-title")}>
                                             GENRES
                                         </p>
-                                        {film?.genres
-                                            ? film.genres.map(
-                                                  (gen: any, index: number) => {
-                                                      return (
-                                                          <span
-                                                              className={cx(
-                                                                  "creator-list"
-                                                              )}
-                                                              key={gen.id}
-                                                          >
-                                                              {gen.name}
-                                                              {film.genres
-                                                                  .length -
-                                                                  1 ===
-                                                              index
-                                                                  ? ""
-                                                                  : ", "}
-                                                          </span>
-                                                      );
-                                                  }
-                                              )
-                                            : ""}
+                                        <div className={cx("genres")}>
+                                            {film?.genres
+                                                ? film.genres.map(
+                                                      (gen: any) => {
+                                                          return (
+                                                              <span
+                                                                  className={cx(
+                                                                      "creator-list",
+                                                                      "genre"
+                                                                  )}
+                                                                  key={gen.id}
+                                                                  onClick={() =>
+                                                                      navigate(
+                                                                          `/movies/genres/${gen.id}/1`
+                                                                      )
+                                                                  }
+                                                              >
+                                                                  {gen.name}
+                                                              </span>
+                                                          );
+                                                      }
+                                                  )
+                                                : ""}
+                                        </div>
                                     </div>
                                     <div className={cx("stars")}>
                                         <p className={cx("creator-title")}>
@@ -361,11 +356,13 @@ const Details = () => {
                             )}
                         </div>
 
-                        {/*  Video */}
-                        {isWatching && (
-                            <VideoMedia imdbId={film.imdb_id} ref={videoRef} />
-                        )}
-                        {/*  End Video */}
+                        {/*  Trailer */}
+                        <Trailer movieId={film.imdb_id} />
+                        {/*  End Trailer */}
+
+                        {/*  Similar */}
+                        <Similar movieId={film.id} />
+                        {/*  End Similar */}
 
                         {/* Reviews */}
                         {reviews && (

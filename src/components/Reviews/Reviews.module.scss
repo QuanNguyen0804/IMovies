@@ -22,6 +22,10 @@
         border: 1px solid #1a1a1a;
         outline: transparent;
         background-color: #ccc;
+
+        &:focus {
+            background-color: #fff;
+        }
     }
 
     .btn-send {
