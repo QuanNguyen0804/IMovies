@@ -24,22 +24,22 @@ const VideoMedia: React.FC<Props> = (props, ref) => {
     return (
         <>
             <h3 className={cx("media-header")}>{title}</h3>
-            {!loading ? (
-                <div className={cx("media-cover")}>
-                    <iframe
-                        src={videoProvideUrl + imdbId}
-                        className={cx("video-media")}
-                        allowFullScreen
-                    />
-                </div>
-            ) : (
-                <div className={cx("loading")}>
-                    <div className={cx("lds-ripple")}>
-                        <div></div>
-                        <div></div>
+
+            <div className={cx("media-cover")}>
+                <iframe
+                    src={videoProvideUrl + imdbId}
+                    className={cx("video-media")}
+                    allowFullScreen
+                />
+                {loading && (
+                    <div className={cx("loading")}>
+                        <div className={cx("lds-ripple")}>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </>
     );
 };

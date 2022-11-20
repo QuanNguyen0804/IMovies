@@ -83,7 +83,7 @@ const Details = () => {
         const minutes = numTime % 60;
         return (
             (hour < 10 ? `0${hour}:` : `${hour}:`) +
-            (minutes < 10 ? `0${minutes}'` : `${minutes}`)
+            (minutes < 10 ? `0${minutes}` : `${minutes}`)
         );
     };
 

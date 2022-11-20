@@ -21,7 +21,7 @@ const Trailer: React.FC<Props> = (props) => {
         };
 
         getTrailer();
-    }, []);
+    }, [movieId]);
 
     const handleChangeEpisode = (key: string) => {
         setKey(key);

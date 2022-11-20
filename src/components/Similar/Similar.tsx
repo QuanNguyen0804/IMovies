@@ -43,7 +43,7 @@ const Similar: React.FC<Props> = (props) => {
                 isArrow={isArrow}
                 isAutoPlay={true}
                 slidesToShow={slideToShow}
-                dots={isArrow}
+                dots={false}
                 slidesToScroll={slideToShow}
             >
                 {filmsSimilar &&
