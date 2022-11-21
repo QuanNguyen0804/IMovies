@@ -38,6 +38,7 @@ const Details = () => {
     const [reviews, setReviews] = useState<any>(undefined);
     const [totalReviews, setTotalReviews] = useState<number>(0);
     const [casts, setCasts] = useState<any>(undefined);
+    const [limitText, setLimitText] = useState<number>(360);
     const navigate = useNavigate();
 
     const getReviewFilm = async (page = 1) => {
@@ -60,7 +61,10 @@ const Details = () => {
         getFilmDetails();
         getReviewFilm();
         getCasts();
+
         window.scrollTo(0, 0);
+
+        if (window.screen.width < 480) setLimitText(260);
     }, [movieId]);
 
     const handleShowLessMoreText = (
@@ -188,7 +192,7 @@ const Details = () => {
                                 {handleShowLessMoreText(
                                     film.overview,
                                     isShowMoreText,
-                                    400
+                                    limitText
                                 )}
                                 <span
                                     onClick={() => {
@@ -201,7 +205,7 @@ const Details = () => {
                                     }}
                                 >
                                     {!film.overview ||
-                                    film.overview.length > 400
+                                    film.overview.length > limitText
                                         ? isShowMoreText
                                             ? " <LESS"
                                             : " MORE>"

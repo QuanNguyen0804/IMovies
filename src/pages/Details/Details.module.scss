@@ -64,7 +64,6 @@
     // }
 
     .film-image {
-        max-width: 100%;
         margin-right: 24px;
 
         @include mobile {
@@ -73,7 +72,7 @@
 
         .image {
             width: var(--image-with);
-            // height: 280px;
+            min-height: 280px;
             max-height: 360px;
             border-radius: 8px;
         }

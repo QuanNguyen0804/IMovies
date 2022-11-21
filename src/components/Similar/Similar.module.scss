@@ -4,6 +4,7 @@
     width: unset !important;
 
     @include mobile {
+        min-height: unset !important;
         height: 240px !important;
     }
 }
