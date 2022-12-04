@@ -39,8 +39,11 @@ httpRequestDB.interceptors.response.use(
         return response;
     },
     (error) => {
-        console.log(error);
-        return error;
+        if (error.response && error.response.data) {
+            return error.response.data;
+        }
+
+        return error.response;
     }
 );
 

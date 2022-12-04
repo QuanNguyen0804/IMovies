@@ -3,9 +3,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
+import { useDispatch } from "react-redux";
 
 import styles from "./Signup.module.scss";
 import userApi from "../../services/userAPI";
+import { setUser as setUserStore } from "../../app/userSlice";
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +20,7 @@ const Signup = () => {
 
     const { username, password, confirmPassword } = user;
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleFormChange = (event: any) => {
         setUser({ ...user, [event.target.name]: event.target.value });
@@ -70,6 +73,8 @@ const Signup = () => {
             if (signupData.success) {
                 const token = signupData.accessToken;
                 window.localStorage.setItem("token", token);
+
+                dispatch(setUserStore(signupData));
 
                 return navigate("/movies");
             }
