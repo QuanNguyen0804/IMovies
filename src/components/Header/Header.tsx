@@ -14,7 +14,7 @@ import {
     faBars,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { setUser } from "../../app/userSlice";
+import { removeUser } from "../../app/userSlice";
 
 const cx = classNames.bind(styles);
 
@@ -109,6 +109,18 @@ const Header: React.FC = () => {
                         <span className={cx("user_icon")}>
                             <FontAwesomeIcon icon={faChevronDown} />
                         </span>
+
+                        <div className={cx("menu")}>
+                            <span
+                                className={cx("item")}
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                    dispatch(removeUser());
+                                }}
+                            >
+                                Logout
+                            </span>
+                        </div>
                     </div>
                 ) : (
                     <button

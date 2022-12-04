@@ -61,6 +61,7 @@ const Trailer: React.FC<Props> = (props) => {
                             : `https://www.youtube.com/embed/${data?.results[0]?.key}`
                     }
                     allowFullScreen
+                    loading="lazy"
                 />
             ) : (
                 ""

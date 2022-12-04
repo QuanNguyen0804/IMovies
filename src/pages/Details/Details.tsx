@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
+import { useSelector, useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
+import {
+    addToWishList,
+    addToHistory,
+    removeFromWishList,
+} from "../../app/userSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faHeart as faHeartSl,
@@ -24,6 +32,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import Casts from "../../components/Casts/Casts";
 import Trailer from "../../components/Trailer/Trailer";
 import Similar from "../../components/Similar/Similar";
+import userApi from "../../services/userAPI";
 
 const cx = classNames.bind(styles);
 
@@ -35,22 +44,23 @@ const Details = () => {
     const [isShowMoreText, setIsShowMoreText] = useState<boolean>(false);
     const [isShowMore, setIsShowMore] = useState<any>(false);
     const [isLike, setIsLike] = useState<boolean>(false);
-    const [reviews, setReviews] = useState<any>(undefined);
-    const [totalReviews, setTotalReviews] = useState<number>(0);
     const [casts, setCasts] = useState<any>(undefined);
     const [limitText, setLimitText] = useState<number>(360);
+    const wishList = useSelector((state: any) => state.userStore.wishList);
+    const isAuth = useSelector((state: any) => state.userStore.isAuth);
     const navigate = useNavigate();
-
-    const getReviewFilm = async (page = 1) => {
-        const res: any = await filmsAPI.reviews(movieId, { page });
-        setTotalReviews(res.total_results);
-        setReviews(res.results);
-    };
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const getFilmDetails = async () => {
             const res: any = await filmsAPI.details(movieId);
             setFilm(res);
+
+            const inWishList = wishList.some((wl: any) => {
+                return wl.movieID == res?.id;
+            });
+
+            setIsLike(inWishList);
         };
 
         const getCasts = async () => {
@@ -59,13 +69,12 @@ const Details = () => {
         };
 
         getFilmDetails();
-        getReviewFilm();
         getCasts();
 
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
 
         if (window.screen.width < 480) setLimitText(260);
-    }, [movieId]);
+    }, [movieId, wishList]);
 
     const handleShowLessMoreText = (
         text: string,
@@ -91,6 +100,93 @@ const Details = () => {
         );
     };
 
+    const showToast = (content?: string) => {
+        toast.error(content || "Something went wrong!", {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: false,
+            progress: undefined,
+            theme: "light",
+        });
+    };
+
+    const handleSetLike = async () => {
+        if (!isAuth) return showToast("You need to login or re-Login");
+
+        const movie = {
+            movieID: film?.id,
+            title: film?.title,
+            release_date: film?.release_date,
+            vote_average: film?.vote_average,
+            poster_path: film?.poster_path,
+        };
+
+        if (!film) return;
+
+        setIsLike(!isLike);
+
+        if (isLike) {
+            const res: any = await userApi.removeFromWishList(film.id);
+            if (!res?.success || res.code === "ERR_NETWORK") {
+                showToast();
+                setIsLike(true);
+                return;
+            }
+
+            dispatch(removeFromWishList({ movieID: film?.id }));
+            return;
+        }
+
+        const resAdd: any = await userApi.addToWishList(
+            film.id,
+            film.title,
+            film.release_date,
+            film.vote_average,
+            film.poster_path
+        );
+        if (!resAdd?.success || resAdd.code === "ERR_NETWORK") {
+            showToast();
+            setIsLike(false);
+            return;
+        }
+
+        dispatch(addToWishList({ movie }));
+    };
+
+    const handleToWatch = async (imdb_id: string, title: string) => {
+        navigate(`/watching/${imdb_id}/${title}`);
+
+        if (!isAuth) return;
+
+        const movie = {
+            movieID: film?.id,
+            title: film?.title,
+            release_date: film?.release_date,
+            vote_average: film?.vote_average,
+            poster_path: film?.poster_path,
+        };
+
+        if (!film) return;
+
+        const res: any = await userApi.addToHistory(
+            film.id,
+            film.title,
+            film.release_date,
+            film.vote_average,
+            film.poster_path
+        );
+
+        if (!res?.success || res.code === "ERR_NETWORK") {
+            showToast();
+            return;
+        }
+
+        dispatch(addToHistory({ movie }));
+    };
+
     return (
         <>
             <Header />
@@ -114,9 +210,7 @@ const Details = () => {
                             <div
                                 className={cx("watch-btn")}
                                 onClick={() =>
-                                    navigate(
-                                        `/watching/${film.imdb_id}/${film.title}`
-                                    )
+                                    handleToWatch(film.imdb_id, film.title)
                                 }
                             >
                                 <span>
@@ -142,7 +236,7 @@ const Details = () => {
                                     <span
                                         className={cx("react-icon-heart")}
                                         onClick={() => {
-                                            setIsLike(!isLike);
+                                            handleSetLike();
                                         }}
                                     >
                                         {isLike ? (
@@ -369,14 +463,10 @@ const Details = () => {
                         {/*  End Similar */}
 
                         {/* Reviews */}
-                        {reviews && (
-                            <Reviews
-                                reviews={reviews}
-                                total_reviews={totalReviews}
-                            />
-                        )}
+                        <Reviews movieId={film.id} />
                         {/*  End Reviews */}
                     </div>
+                    <ToastContainer />
                 </div>
             )}
         </>

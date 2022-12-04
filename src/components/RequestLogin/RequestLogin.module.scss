@@ -1,0 +1,13 @@
+.main {
+    // width: calc(100% - 16px);
+    padding: 14px 18px;
+    margin: auto 8px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid var(--primary);
+    border-radius: 4px;
+
+    a {
+        color: var(--primary);
+    }
+}

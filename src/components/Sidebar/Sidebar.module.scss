@@ -3,7 +3,8 @@
 .sidebar {
     flex: 1;
     flex-shrink: 0;
-    width: 260px;
+    // width: 260px;
+    max-width: 260px;
     padding: 8px 12px;
     margin-right: 4px;
     margin-top: 56px;
@@ -34,15 +35,63 @@
         z-index: 100;
     }
 
+    .Login-btn {
+        display: none;
+        margin: 10px 0;
+        text-align: center;
+
+        background-color: var(--primary);
+        border-radius: 10px;
+
+        a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @include mobile {
+            display: block;
+        }
+    }
+
     .genres {
         @include tablet {
             height: 360px;
             overflow-y: scroll;
         }
         @include mobile {
-            height: 360px;
+            height: 280px;
             overflow-y: scroll;
         }
+    }
+
+    .user {
+        display: none;
+        justify-content: flex-start;
+        align-items: center;
+        color: #ddd;
+        margin: 10px 0;
+        position: relative;
+
+        @include mobile {
+            display: flex;
+        }
+
+        .avatar {
+            display: block;
+            width: 18px;
+            height: 18px;
+            padding: 2px;
+            margin-right: 12px;
+            border-radius: 50%;
+            border: 1px solid;
+        }
+    }
+
+    .logout-btn {
+        padding: 8px 0px;
     }
 }
 

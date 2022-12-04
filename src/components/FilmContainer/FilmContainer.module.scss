@@ -2,11 +2,12 @@
 
 .film-container {
     display: flex;
+    align-items: flex-start;
     width: calc(#{1112px} - #{260px});
     max-width: 100%;
-    min-height: 500px;
+    // min-height: 500px;
     // margin-left: auto;
-    margin: auto;
+    margin: 0 auto auto;
     flex-wrap: wrap;
 
     &::-webkit-scrollbar {
@@ -16,5 +17,6 @@
 
     @include mobile {
         overflow-y: unset;
+        min-height: 100vh;
     }
 }

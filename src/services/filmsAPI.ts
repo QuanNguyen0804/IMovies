@@ -1,4 +1,5 @@
 import httpRequest from "../utils/httpRequest";
+import httpRequestDB from "../utils/httpRequestDB";
 
 const filmsApi = {
     details: (movieId: number, option?: object) => {
@@ -46,6 +47,20 @@ const filmsApi = {
     trailer: (movieId: number, option?: object) => {
         const url = `movie/${movieId}/videos`;
         return httpRequest.get(url, { params: { ...option } });
+    },
+
+    // more from Backend - DB
+    getComment: (movieID: number) => {
+        const url = `movie/comment`;
+        return httpRequestDB.get(url, { params: { movieID } });
+    },
+
+    addComment: (movieID: number, content: string) => {
+        const url = `movie/addComment`;
+        return httpRequestDB.post(url, {
+            movieID,
+            content,
+        });
     },
 };
 

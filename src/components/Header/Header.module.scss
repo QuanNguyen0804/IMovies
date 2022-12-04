@@ -139,6 +139,7 @@
         margin-left: 10px;
         color: #ddd;
         cursor: pointer;
+        position: relative;
 
         @include mobile {
             display: none;
@@ -155,6 +156,34 @@
 
         .name {
             margin: 0 6px;
+        }
+
+        .menu {
+            display: none;
+            position: absolute;
+            padding: 4px 10px 6px;
+            top: 28px;
+            right: 0;
+            border-radius: 2px;
+            box-shadow: 0px 1px 4px #000;
+            background-color: #555;
+
+            .item {
+                cursor: pointer;
+            }
+
+            &::before {
+                position: absolute;
+                height: 10px;
+                top: -6px;
+                right: 0;
+                content: "";
+                width: 100%;
+            }
+        }
+
+        &:hover .menu {
+            display: block;
         }
     }
 

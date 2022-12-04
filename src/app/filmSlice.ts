@@ -16,10 +16,13 @@ export const filmSlice = createSlice({
             state.totalPages = action.payload.totalPages;
             state.genre = action.payload.genre;
         },
+        setGenre: (state: any, action) => {
+            state.genre = action.payload;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { setFilmStore } = filmSlice.actions;
+export const { setFilmStore, setGenre } = filmSlice.actions;
 
 export default filmSlice.reducer;

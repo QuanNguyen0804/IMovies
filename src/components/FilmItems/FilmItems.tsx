@@ -1,8 +1,6 @@
-import React, { useRef, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Skeleton from "@mui/material/Skeleton";
+import React, { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
     faHeart as faHeartSl,
     faStar,
@@ -21,44 +19,27 @@ const cx = classNames.bind(styles);
 
 const FilmItems: React.FC<Props> = (props) => {
     const { film, className = "" } = props;
-    const [loading, setLoading] = useState<boolean>(true);
     const navigate = useNavigate();
     const imgElement = useRef<any>();
 
-    const handleOnclick = (id: number) => {
+    const handleOnclick = () => {
+        const id = film.id || film.movieID;
         return navigate(`/movie/${id}`);
-    };
-
-    const handleLoading = () => {
-        imgElement.current.classList.remove(cx("hide"));
-        setLoading(false);
     };
 
     return (
         <div
             className={cx("film-items", className)}
-            onClick={() => handleOnclick(film.id)}
+            onClick={() => handleOnclick()}
         >
             <img
-                className={cx("image", "hide")}
+                className={cx("image")}
                 src={`${process.env.REACT_APP_PATH_IMAGE}${film.poster_path}`}
                 alt={film.title}
-                onLoad={() => {
-                    handleLoading();
-                }}
-                onError={() => {
-                    handleLoading();
-                }}
+                loading="lazy"
                 ref={imgElement}
             />
 
-            {loading && (
-                <Skeleton
-                    className={cx("image")}
-                    variant="rectangular"
-                    animation="wave"
-                />
-            )}
             <div className={cx("content")}>
                 <p className={cx("name")}>{film.title}</p>
                 <div className={cx("info")}>
