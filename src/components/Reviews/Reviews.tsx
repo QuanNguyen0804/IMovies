@@ -27,6 +27,7 @@ const Reviews: React.FC<Props> = (props) => {
     const [cValue, setCValue] = useState<string>("");
     const [reviews, setReviews] = useState<any>([]);
     const [numLoad, setNumLoad] = useState<number>(5);
+    const [loading, setLoading] = useState<boolean>(false);
     const isAuth = useSelector((state: any) => state.userStore.isAuth);
 
     useEffect(() => {
@@ -127,22 +128,33 @@ const Reviews: React.FC<Props> = (props) => {
     const handleSendComment = () => {
         if (!cValue) return showToast("warn", "Please enter your comment");
 
+        setLoading(true);
         (async () => {
-            const res: any = await filmsAPI.addComment(movieId, cValue);
+            try {
+                const res: any = await filmsAPI.addComment(movieId, cValue);
 
-            if (!res.success) return showToast("error");
+                if (!res?.success) {
+                    setLoading(false);
+                    return showToast("error");
+                }
 
-            setReviews((prev: any) => [
-                handleData(
-                    res.comment.author,
-                    res.comment.avatar,
-                    res.comment.content,
-                    res.comment.datetime.slice(0, 10)
-                ),
-                ...prev,
-            ]);
+                setReviews((prev: any) => [
+                    handleData(
+                        res.comment.author,
+                        res.comment.avatar,
+                        res.comment.content,
+                        res.comment.datetime.slice(0, 10)
+                    ),
+                    ...prev,
+                ]);
 
-            setCValue("");
+                setCValue("");
+                setLoading(false);
+            } catch (error) {
+                setCValue("");
+                setLoading(false);
+                showToast("error");
+            }
         })();
     };
 
@@ -159,12 +171,20 @@ const Reviews: React.FC<Props> = (props) => {
                             setCValue(e.target.value);
                         }}
                     />
-                    <span
-                        className={cx("btn-send")}
-                        onClick={handleSendComment}
-                    >
-                        <FontAwesomeIcon icon={faPaperPlaneSL} />
-                    </span>
+                    {loading ? (
+                        <img
+                            className={cx("send-loading")}
+                            src="/images/loading-img.gif"
+                            alt="Loading"
+                        />
+                    ) : (
+                        <span
+                            className={cx("btn-send")}
+                            onClick={handleSendComment}
+                        >
+                            <FontAwesomeIcon icon={faPaperPlaneSL} />
+                        </span>
+                    )}
                 </div>
             ) : (
                 <RequestLogin content="To comment you must be" />

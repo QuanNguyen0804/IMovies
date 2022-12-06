@@ -37,6 +37,12 @@
         color: var(--primary);
         cursor: pointer;
     }
+
+    .send-loading {
+        width: 32px;
+        margin-left: 4px;
+        margin-bottom: 4px;
+    }
 }
 
 .load-more {
