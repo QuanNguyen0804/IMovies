@@ -18,6 +18,8 @@ const Signup = () => {
         confirmPassword: "",
     });
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { username, password, confirmPassword } = user;
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -68,6 +70,8 @@ const Signup = () => {
                 "password and confirm password do not match"
             );
 
+        setLoading(true);
+
         try {
             const signupData: any = await userApi.signup(username, password);
             if (signupData.success) {
@@ -80,8 +84,10 @@ const Signup = () => {
             }
 
             showToast("warn", signupData?.message);
+            setLoading(false);
         } catch (error) {
             showToast("error");
+            setLoading(false);
         }
     };
 
@@ -133,7 +139,11 @@ const Signup = () => {
                     </div>
 
                     <button type="submit" className={cx("btn-signup")}>
-                        Sign up
+                        {loading ? (
+                            <img src="/images/loading-img.gif" alt="Loading" />
+                        ) : (
+                            "Sign up"
+                        )}
                     </button>
 
                     <div className={cx("footer")}>

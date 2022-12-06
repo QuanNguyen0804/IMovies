@@ -17,6 +17,8 @@ const Login = () => {
         password: "",
     });
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { username, password } = user;
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -57,6 +59,8 @@ const Login = () => {
         if (!username || !password)
             return showToast("warn", "missing username or password");
 
+        setLoading(true);
+
         try {
             const loginData: any = await userApi.login(username, password);
             if (loginData.success) {
@@ -69,8 +73,10 @@ const Login = () => {
             }
 
             showToast("warn", loginData?.message);
+            setLoading(false);
         } catch (error) {
             showToast("error");
+            setLoading(false);
         }
     };
 
@@ -108,7 +114,11 @@ const Login = () => {
                     </div>
 
                     <button type="submit" className={cx("btn-login")}>
-                        Login
+                        {loading ? (
+                            <img src="/images/loading-img.gif" alt="Loading" />
+                        ) : (
+                            "Login"
+                        )}
                     </button>
 
                     <div className={cx("footer")}>
