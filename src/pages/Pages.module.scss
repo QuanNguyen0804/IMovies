@@ -89,10 +89,17 @@
     cursor: pointer;
 
     @include mobile {
-        width: 46px;
-        height: 46px;
+        padding: 12px 16px;
         bottom: 80px;
         right: 20px;
+
+        svg {
+            display: none;
+        }
+
+        span::after {
+            content: " Remove all";
+        }
     }
 
     &:hover span::after {

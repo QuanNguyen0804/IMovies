@@ -98,7 +98,7 @@ const WishList = () => {
 
             <ToastContainer />
 
-            {isAuth && wishList && wishList.length > 0 && (
+            {!(isAuth && wishList && wishList.length > 0) && (
                 <div
                     className={cx("remove-all")}
                     title="Remove your wish list"

@@ -29,6 +29,7 @@ const VideoMedia: React.FC<Props> = (props, ref) => {
                 <iframe
                     src={videoProvideUrl + imdbId}
                     className={cx("video-media")}
+                    allow="encrypted-media"
                     allowFullScreen
                 />
                 {loading && (

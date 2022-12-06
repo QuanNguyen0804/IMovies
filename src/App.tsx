@@ -34,7 +34,7 @@ const App: React.FC = () => {
                     dispatch(setHistory({ wishList: [] }));
                 }
             })();
-    }, []);
+    }, [isAuth]);
 
     return (
         <BrowserRouter>
