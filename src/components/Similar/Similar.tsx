@@ -9,56 +9,53 @@ import FilmItems from "../FilmItems/FilmItems";
 import filmsApi from "../../services/filmsAPI";
 
 interface Props {
-    movieId: any;
+  movieId: any;
 }
 
 const cx = classNames.bind(styles);
 
 const Similar: React.FC<Props> = (props) => {
-    const { movieId } = props;
-    const navigate = useNavigate();
-    const [filmsSimilar, setFilmsSimilar] = useState<any>(undefined);
-    const [slideToShow, setSlideToShow] = useState<number>(5);
-    const [isArrow, setIsArrow] = useState<boolean>(true);
+  const { movieId } = props;
+  const navigate = useNavigate();
+  const [filmsSimilar, setFilmsSimilar] = useState<any>(undefined);
+  const [slideToShow, setSlideToShow] = useState<number>(5);
+  const [isArrow, setIsArrow] = useState<boolean>(true);
 
-    useEffect(() => {
-        const getListFilm = async () => {
-            const res: any = await filmsApi.similar(movieId);
-            setFilmsSimilar(res.results);
-        };
+  useEffect(() => {
+    const getListFilm = async () => {
+      const res: any = await filmsApi.similar(movieId);
+      setFilmsSimilar(res.results);
+    };
 
-        getListFilm();
+    getListFilm();
 
-        const sWidth = window.screen.width;
-        if (sWidth < 480) {
-            setSlideToShow(3);
-            return;
-        }
-    }, []);
+    const sWidth = window.screen.width;
+    if (sWidth < 480) {
+      setSlideToShow(3);
+      return;
+    }
+  }, []);
 
-    return (
-        <>
-            <h3>SIMILAR</h3>
-            <SlideshowContainer
-                isArrow={isArrow}
-                isAutoPlay={true}
-                slidesToShow={slideToShow}
-                dots={false}
-                slidesToScroll={slideToShow}
-            >
-                {filmsSimilar &&
-                    filmsSimilar.map((film: Film) => {
-                        return (
-                            <FilmItems
-                                key={film.id}
-                                film={film}
-                                className={cx("film")}
-                            />
-                        );
-                    })}
-            </SlideshowContainer>
-        </>
-    );
+  return (
+    <>
+      <h3>SIMILAR</h3>
+      {filmsSimilar && (
+        <SlideshowContainer
+          isArrow={isArrow}
+          isAutoPlay={true}
+          slidesToShow={slideToShow}
+          dots={false}
+          slidesToScroll={slideToShow}
+        >
+          {filmsSimilar.map((film: Film) => {
+            return (
+              <FilmItems key={film.id} film={film} className={cx("film")} />
+            );
+          })}
+        </SlideshowContainer>
+      )}
+    </>
+  );
 };
 
 export default Similar;
